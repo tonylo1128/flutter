@@ -11,7 +11,6 @@ class MainBody extends StatelessWidget {
         child: Column(
           children: [
             KmbCard(),
-            Text("DLLM"),
           ],
         ),
       ),

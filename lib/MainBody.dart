@@ -9,13 +9,13 @@ class MainBody extends StatefulWidget {
 }
 
 class MainBodyState extends State<MainBody> {
-  var apiReturnData = List<ChallengeData>();
+  var _apiReturnData = List<ChallengeData>();
 
   @override
   void initState() {
     fetchData().then((value) {
       print('Async done');
-      apiReturnData = value;
+      _apiReturnData = value;
     });
     super.initState();
   }
@@ -23,18 +23,23 @@ class MainBodyState extends State<MainBody> {
   @override
   build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: 100,
       child: Align(
-          alignment: Alignment.center,
-          child: Stack(
+        alignment: Alignment.center,
+        child: FutureBuilder(
+          future: fetchData(),
+          builder: (context, snapshot) => ListView(
+            scrollDirection: Axis.horizontal,
             children: [
-              ...(apiReturnData as List<ChallengeData>)
+              ...(_apiReturnData as List<ChallengeData>)
                   .map(
                     (passInData) => KmbCard(passInData: passInData),
                   )
                   .toList()
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

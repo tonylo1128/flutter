@@ -9,7 +9,9 @@ List<dynamic> temp;
 List<ChallengeData> _result = List<ChallengeData>();
 
 Future<List<ChallengeData>> fetchData() async {
+  // final response = await http.get(testingServer + "/getdata?page0&per_page=1");
   final response = await http.get(testingServer);
+
   if (response.statusCode == 200) {
     temp = json.decode(response.body)['recieveRespFromkmbDataRepos'];
 
@@ -20,6 +22,6 @@ Future<List<ChallengeData>> fetchData() async {
     }
     return _result;
   } else {
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load data from database');
   }
 }

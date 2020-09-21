@@ -16,56 +16,48 @@ class KmbCard extends StatefulWidget {
 }
 
 class KmbCardState extends State<KmbCard> {
-  double xPosition = 0;
-  double yPosition = 0;
-
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-        top: yPosition,
-        left: xPosition,
-        child: GestureDetector(
-            onPanUpdate: (tapInfo) {
-              setState(() {
-                xPosition += tapInfo.delta.dx;
-                yPosition += tapInfo.delta.dy;
-              });
-            },
-            child: SizedBox(
-              width: 300,
-              height: 300,
-              child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(175),
+    return Container(
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.red,
+        shape: BoxShape.circle,
+      ),
+      child: Stack(
+        children: <Widget>[
+          Align(
+            alignment: Alignment(0, -1),
+            child: Container(
+              decoration: BoxDecoration(
+                  // color: Colors.black,
                   ),
-                  color: Colors.red,
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 150,
-                        height: 100,
-                        child: Image.network(
-                            "https://t6.rbxcdn.com/41f3702acfff23d966b3f4d8a1121203"),
-                      ),
-                      SizedBox(
-                        width: 200,
-                        height: 100,
-                        child: Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            border: Border.all(),
-                            color: Colors.white,
-                          ),
-                          child: Text(
-                            widget.passInData.route,
-                            style: TextStyle(fontSize: 25),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-            )));
+              width: 50,
+              height: 40,
+              child: Image.network(
+                  "https://t6.rbxcdn.com/41f3702acfff23d966b3f4d8a1121203"),
+            ),
+          ),
+          Align(
+            alignment: Alignment(0, 0.02),
+            child: Container(
+              width: 60,
+              height: 35,
+              decoration: BoxDecoration(
+                border: Border.all(),
+                color: Colors.white,
+              ),
+              child: Center(
+                child: Text(
+                  widget.passInData.route,
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

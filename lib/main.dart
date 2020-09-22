@@ -12,6 +12,9 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text("KMBPJ"),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.search), onPressed: () {})
+          ],
         ),
         drawer: Drawer(
           child: ListView(

@@ -4,12 +4,7 @@ import 'apiCall/getData/ChallengeDataJson.dart';
 
 class KmbCard extends StatefulWidget {
   final ChallengeData passInData;
-
   const KmbCard({this.passInData});
-
-  // final String serverIP;
-
-  // const ServerIpText ({ Key key, this.serverIP }): super(key: key);
 
   @override
   KmbCardState createState() => KmbCardState();
@@ -19,6 +14,10 @@ class KmbCardState extends State<KmbCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.only(
+        left: 5,
+        right: 5,
+      ),
       width: 100,
       height: 100,
       decoration: BoxDecoration(

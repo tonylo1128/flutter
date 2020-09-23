@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'MainBody.dart';
+import 'CusDrawer.dart';
+import 'CusSearch.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,30 +12,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: Text("KMBPJ"),
           actions: <Widget>[
-            IconButton(icon: Icon(Icons.search), onPressed: () {})
+            IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: CusSearch(),
+                  );
+                })
           ],
         ),
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text(
-                  "Header",
-                  style: TextStyle(color: Colors.white, fontSize: 40),
-                ),
-              ),
-              ListTile(title: Text("Texting 1")),
-              ListTile(title: Text("Texting 2")),
-              ListTile(title: Text("Texting 3")),
-            ],
-          ),
-        ),
+        drawer: CusDrawer(),
         body: MainBody(),
       ),
     );

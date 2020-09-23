@@ -61,7 +61,7 @@ class MainBodyState extends State<MainBody> {
             top: 5,
           ),
           decoration: BoxDecoration(
-            color: Colors.red,
+            color: Colors.grey[850],
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20)),
           ),
@@ -82,7 +82,10 @@ class MainBodyState extends State<MainBody> {
                     )
                   : Align(
                       alignment: Alignment(0, 0),
-                      child: Text('Empty dropzone'),
+                      child: Text(
+                        'Empty dropzone',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     );
             },
             onWillAccept: (data) {

@@ -13,6 +13,11 @@ class MainBodyState extends State<MainBody> {
   bool successfulDrop = false;
   var dragSuccessTemp;
 
+  var font30White = TextStyle(
+    fontSize: 30,
+    color: Colors.white,
+  );
+
   @override
   void initState() {
     fetchData().then((value) {
@@ -30,6 +35,7 @@ class MainBodyState extends State<MainBody> {
 
     return Column(
       children: <Widget>[
+        // top part of the app(KMB Logo)
         Container(
           height: 100,
           child: Align(
@@ -54,6 +60,7 @@ class MainBodyState extends State<MainBody> {
             ),
           ),
         ),
+        // below code is the "display details part"
         Container(
           width: ogSize.width,
           height: ogSize.height - 185,
@@ -70,15 +77,22 @@ class MainBodyState extends State<MainBody> {
                 (context, List<ChallengeData> candidateData, rejectedData) {
               print("Hasnt get in onWillAccept and onAccept ar");
               return successfulDrop
-                  ? Align(
-                      alignment: Alignment(0, 0),
-                      child: Text(
-                        dragSuccessTemp.destination,
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          dragSuccessTemp.startingPoint,
+                          style: font30White,
                         ),
-                      ),
+                        Text(
+                          dragSuccessTemp.direction,
+                          style: font30White,
+                        ),
+                        Text(
+                          dragSuccessTemp.destination,
+                          style: font30White,
+                        ),
+                      ],
                     )
                   : Align(
                       alignment: Alignment(0, 0),

@@ -25,3 +25,7 @@ Future<List<ChallengeData>> fetchData() async {
     throw Exception('Failed to load data from database');
   }
 }
+
+Future<ChallengeData> seach(String keyword) async {
+  final response = await http.get(testingServer + "/seaching");
+}

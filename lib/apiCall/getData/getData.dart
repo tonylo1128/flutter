@@ -26,6 +26,28 @@ Future<List<ChallengeData>> fetchData() async {
   }
 }
 
-Future<ChallengeData> seach(String keyword) async {
-  final response = await http.get(testingServer + "/seaching");
+Future<List<ChallengeData>> search(String keyword) async {
+  print("I am in search function ar !");
+
+  List<dynamic> temp;
+  List<ChallengeData> _result = new List<ChallengeData>();
+
+  var jsonTemp = {'inputSearchValue': keyword};
+  var params = jsonEncode(jsonTemp);
+
+  Map<String, String> headers = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+  };
+
+  var response = await http.post("http://10.192.32.43:8081" + "/seaching",
+      headers: headers, body: params);
+
+  temp = json.decode(response.body)['returnResp'];
+  for (var item in temp) {
+    _result.add(
+      ChallengeData.fromJson(item),
+    );
+  }
+  return _result;
 }

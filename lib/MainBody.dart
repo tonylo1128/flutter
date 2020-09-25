@@ -28,7 +28,7 @@ class MainBodyState extends State<MainBody> {
   }
 
   @override
-  build(BuildContext context) {
+  Widget build(BuildContext context) {
     var ogSize = MediaQuery.of(context).size;
 
     print(ogSize);
@@ -38,6 +38,9 @@ class MainBodyState extends State<MainBody> {
         // top part of the app(KMB Logo)
         Container(
           height: 100,
+          margin: const EdgeInsets.only(
+            top: 15,
+          ),
           child: Align(
             alignment: Alignment.center,
             child: FutureBuilder(
@@ -63,9 +66,9 @@ class MainBodyState extends State<MainBody> {
         // below code is the "display details part"
         Container(
           width: ogSize.width,
-          height: ogSize.height - 185,
+          height: MediaQuery.of(context).size.height - 210,
           margin: const EdgeInsets.only(
-            top: 5,
+            top: 15,
           ),
           decoration: BoxDecoration(
             color: Colors.grey[850],
@@ -98,7 +101,7 @@ class MainBodyState extends State<MainBody> {
                       alignment: Alignment(0, 0),
                       child: Text(
                         'Empty dropzone',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     );
             },

@@ -3,25 +3,39 @@ import 'MainBody.dart';
 import 'CusDrawer.dart';
 import 'CusSearch.dart';
 import 'NetworkCheck.dart';
+import 'SearchTextField.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  HomeState createState() => HomeState();
+}
+
+class HomeState extends State<Home> {
   // NetworkCheck temp = NetworkCheck();
   // temp.check();
+
+  bool searching = false;
+  String searchKeyWord;
+
+  passKeyword(inputFromChildWidget) =>
+      setState(() => {searchKeyWord = inputFromChildWidget});
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.black,
       appBar: new AppBar(
-        title: new Text("KMBPJ"),
+        backgroundColor: searching ? Colors.redAccent : Colors.black,
+        title: searching
+            ? SearchTextField(passInFunction: passKeyword)
+            : new Text("KMBPJ"),
         actions: <Widget>[
           new IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              showSearch(
-                context: context,
-                delegate: CusSearch(),
-              );
+              setState(() {
+                searching = !searching;
+              });
             },
           )
         ],

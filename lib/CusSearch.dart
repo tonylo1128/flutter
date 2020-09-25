@@ -1,6 +1,11 @@
 import "package:flutter/material.dart";
+import 'apiCall/getData/getData.dart';
 
 class CusSearch extends SearchDelegate {
+  //textfild label
+  @override
+  String get searchFieldLabel => 'Input keywords here';
+
   @override
   List<Widget> buildActions(BuildContext context) {
     //the button on the right hand side of the appbar
@@ -31,7 +36,12 @@ class CusSearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    print(query);
+    search(query).then((value) {
+      for (var item in value) {
+        print(item.igLink);
+      }
+    });
+
     if (query == "tony") {
       return Column(
         children: <Widget>[
@@ -45,8 +55,3 @@ class CusSearch extends SearchDelegate {
     // throw UnimplementedError();
   }
 }
-
-// axios
-//       .post(gobalUrl + "/seaching", {
-//         inputSearchValue,
-//       })

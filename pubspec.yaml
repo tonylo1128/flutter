@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   http: ^0.12.1
   connectivity: ^0.4.9+3
+  smooth_page_indicator: ^0.2.0
+  google_maps_flutter: ^0.5.33
   
 
 

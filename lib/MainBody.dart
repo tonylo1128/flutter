@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kmb/GoogleMapWidget.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+// import 'package:kmb/Indicator.dart';
 import 'KmbCard.dart';
 import 'apiCall/getData/getData.dart';
 import 'apiCall/getData/ChallengeDataJson.dart';
@@ -15,6 +19,7 @@ class MainBodyState extends State<MainBody> {
   var _apiReturnData = List<ChallengeData>();
   bool successfulDrop = false;
   var dragSuccessTemp;
+  PageController pageController = PageController();
 
   var font30White = TextStyle(
     fontSize: 30,
@@ -81,67 +86,85 @@ class MainBodyState extends State<MainBody> {
           ),
         ),
         // below code is the "display details part"
-        Container(
-          width: ogSize.width,
-          height: MediaQuery.of(context).size.height - 210,
-          margin: const EdgeInsets.only(
-            top: 15,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.grey[850],
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-          ),
-          child: DragTarget(
-            builder:
-                (context, List<ChallengeData> candidateData, rejectedData) {
-              print("Hasnt get in onWillAccept and onAccept ar");
-              return successfulDrop
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          dragSuccessTemp.startingPoint,
-                          style: font30White,
-                        ),
-                        Text(
-                          dragSuccessTemp.direction,
-                          style: font30White,
-                        ),
-                        Text(
-                          dragSuccessTemp.destination,
-                          style: font30White,
-                        ),
-                      ],
-                    )
-                  : Align(
-                      alignment: Alignment(0, 0),
-                      child: Text(
-                        'Empty dropzone',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    );
-            },
-            onWillAccept: (data) {
-              print("onWillAccept");
 
-              return true;
-            },
-            onAccept: (data) {
-              print("onAccept");
-              print(data.id);
-              if (data.id != 0) {
-                setState(() {
-                  successfulDrop = true;
-                  dragSuccessTemp = data;
-                });
-                return true;
-              } else {
-                return Text('Almost there !!!');
-              }
-            },
-          ),
-        )
+        Column(
+          children: <Widget>[
+            Container(
+              width: ogSize.width,
+              height: MediaQuery.of(context).size.height - 230,
+              margin: const EdgeInsets.only(
+                top: 15,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.grey[850],
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
+              ),
+              child: PageView(
+                controller: pageController,
+                children: <Widget>[
+                  DragTarget(
+                    builder: (context, List<ChallengeData> candidateData,
+                        rejectedData) {
+                      return successfulDrop
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  dragSuccessTemp.startingPoint,
+                                  style: font30White,
+                                ),
+                                Text(
+                                  dragSuccessTemp.direction,
+                                  style: font30White,
+                                ),
+                                Text(
+                                  dragSuccessTemp.destination,
+                                  style: font30White,
+                                ),
+                              ],
+                            )
+                          : Align(
+                              alignment: Alignment(0, 0),
+                              child: Text(
+                                'Empty dropzone',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                            );
+                    },
+                    onWillAccept: (data) {
+                      print("onWillAccept");
+
+                      return true;
+                    },
+                    onAccept: (data) {
+                      print("onAccept");
+                      print(data.id);
+                      if (data.id != 0) {
+                        setState(() {
+                          successfulDrop = true;
+                          dragSuccessTemp = data;
+                        });
+                        return true;
+                      } else {
+                        return Text('Almost there !!!');
+                      }
+                    },
+                  ),
+                  //Google Map
+                  GoogleMapWidget()
+                ],
+              ),
+            ),
+            SmoothPageIndicator(
+              controller: pageController,
+              count: 2,
+              effect: SlideEffect(),
+            ),
+          ],
+        ),
       ],
     );
   }

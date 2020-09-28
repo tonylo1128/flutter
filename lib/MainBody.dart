@@ -4,6 +4,9 @@ import 'apiCall/getData/getData.dart';
 import 'apiCall/getData/ChallengeDataJson.dart';
 
 class MainBody extends StatefulWidget {
+  final List<ChallengeData> passInData;
+  const MainBody({this.passInData});
+
   @override
   MainBodyState createState() => MainBodyState();
 }
@@ -43,24 +46,38 @@ class MainBodyState extends State<MainBody> {
           ),
           child: Align(
             alignment: Alignment.center,
-            child: FutureBuilder(
-              future: fetchData(),
-              builder: (context, snapshot) => ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ...(_apiReturnData as List<ChallengeData>)
-                      .map((passInData) => Draggable(
-                            data: passInData,
-                            child: KmbCard(passInData: passInData),
-                            feedback: KmbCard(passInData: passInData),
-
-                            //allow us to if there are two widget scroll in a same direction, if yes can set affinity to limit it.
-                            affinity: Axis.vertical,
-                          ))
-                      .toList()
-                ],
-              ),
-            ),
+            child: widget.passInData.length == 0
+                ? FutureBuilder(
+                    future: fetchData(),
+                    builder: (context, snapshot) => ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        ...(_apiReturnData as List<ChallengeData>)
+                            .map((passInData) => Draggable(
+                                  data: passInData,
+                                  child: KmbCard(passInData: passInData),
+                                  feedback: KmbCard(passInData: passInData),
+                                  //allow us to if there are two widget scroll in a same direction, if yes can set affinity to limit it.
+                                  affinity: Axis.vertical,
+                                ))
+                            .toList()
+                      ],
+                    ),
+                  )
+                : ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      ...(widget.passInData as List<ChallengeData>)
+                          .map((passInData) => Draggable(
+                                data: passInData,
+                                child: KmbCard(passInData: passInData),
+                                feedback: KmbCard(passInData: passInData),
+                                //allow us to if there are two widget scroll in a same direction, if yes can set affinity to limit it.
+                                affinity: Axis.vertical,
+                              ))
+                          .toList()
+                    ],
+                  ),
           ),
         ),
         // below code is the "display details part"

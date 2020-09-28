@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kmb/apiCall/getData/ChallengeDataJson.dart';
 import 'MainBody.dart';
 import 'CusDrawer.dart';
 import 'CusSearch.dart';
@@ -15,10 +16,16 @@ class HomeState extends State<Home> {
   // temp.check();
 
   bool searching = false;
-  String searchKeyWord;
+  List<ChallengeData> result = [];
 
-  passKeyword(inputFromChildWidget) =>
-      setState(() => {searchKeyWord = inputFromChildWidget});
+  void retrieveResult(resultFromChildWidget) {
+    setState(() => {result = resultFromChildWidget});
+    print(result.length);
+  }
+
+  // passInFunction: (resultFromChildWidget) => {
+  //                     setState(() => {result = resultFromChildWidget})
+  //                   }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,7 @@ class HomeState extends State<Home> {
       appBar: new AppBar(
         backgroundColor: searching ? Colors.redAccent : Colors.black,
         title: searching
-            ? SearchTextField(passInFunction: passKeyword)
+            ? SearchTextField(passInFunction: retrieveResult)
             : new Text("KMBPJ"),
         actions: <Widget>[
           new IconButton(
@@ -41,7 +48,7 @@ class HomeState extends State<Home> {
         ],
       ),
       drawer: CusDrawer(),
-      body: MainBody(),
+      body: MainBody(passInData: result),
     );
   }
 }

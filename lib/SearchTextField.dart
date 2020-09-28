@@ -1,59 +1,65 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-class SearchTextField extends StatefulWidget {
-  final Function passInFunction;
+import 'apiCall/getData/ChallengeDataJson.dart';
+import 'apiCall/getData/getData.dart';
 
+typedef BusDataCallback = void Function(List<ChallengeData> resultInput);
+
+class SearchTextField extends StatefulWidget {
   const SearchTextField({this.passInFunction});
+  final BusDataCallback passInFunction;
 
   @override
   SearchTextFieldState createState() => SearchTextFieldState();
 }
 
 class SearchTextFieldState extends State<SearchTextField> {
-  final testController = TextEditingController();
+  TextEditingController testController = TextEditingController();
+  FocusNode _focusNode;
+  Timer _debounce;
+
+  handleOnChangeCallSearchApi() {
+    if (_debounce?.isActive ?? false) _debounce.cancel();
+    _debounce = Timer(const Duration(milliseconds: 1000), () async {
+      // do something with testController.text
+      print("Here is the input " + testController.text);
+
+      if (testController.text != null) {
+        var temp = await search(testController.text);
+        widget.passInFunction(temp);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    testController.addListener(handleOnChangeCallSearchApi);
+  }
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     testController.dispose();
+    _focusNode.dispose();
+    testController.removeListener(handleOnChangeCallSearchApi);
     super.dispose();
-  }
-
-  final FocusNode _focusNode = FocusNode();
-  var _message;
-  void _handleKeyEvent(RawKeyEvent event) {
-    setState(() {
-      if (event.logicalKey == LogicalKeyboardKey.keyQ) {
-        _message = 'Pressed the "Q" key!';
-        print(_message);
-      } else {
-        if (kReleaseMode) {
-          _message =
-              'Not a Q: Key label is "${event.logicalKey.keyLabel ?? '<none>'}"';
-
-          print(_message);
-        } else {
-          // This will only print useful information in debug mode.
-          _message = 'Not a Q: Pressed ${event.logicalKey.debugName}';
-          print(_message);
-        }
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return new RawKeyboardListener(
       focusNode: _focusNode,
-      onKey: _handleKeyEvent,
       child: TextField(
+        //controller can be replace by onChange, but controller allow us do more staff
         controller: testController,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          labelText: 'input here to here',
+          labelText: 'input keywords here',
         ),
       ),
     );

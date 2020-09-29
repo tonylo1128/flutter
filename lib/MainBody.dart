@@ -168,7 +168,7 @@ class MainBodyState extends State<MainBody> {
                   ),
                   //Google Map
                   GoogleMapWidget(passInPathList: path),
-                  PathTimer(passInTargetRoute: dragSuccessTemp.route)
+                  PathTimer(passInTargetRoute: dragSuccessTemp!=null?dragSuccessTemp.route:"")
                 ],
               ),
             ),

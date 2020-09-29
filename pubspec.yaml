@@ -27,6 +27,7 @@ dependencies:
   connectivity: ^0.4.9+3
   smooth_page_indicator: ^0.2.0
   google_maps_flutter: ^0.5.33
+  proj4dart: ^1.0.5
   
 
 

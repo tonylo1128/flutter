@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kmb/GoogleMapWidget.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 // import 'package:kmb/Indicator.dart';
+import 'GoogleMapWidget.dart';
 import 'KmbCard.dart';
 import 'apiCall/getData/getData.dart';
 import 'apiCall/getData/ChallengeDataJson.dart';
@@ -19,12 +20,20 @@ class MainBodyState extends State<MainBody> {
   var _apiReturnData = List<ChallengeData>();
   bool successfulDrop = false;
   var dragSuccessTemp;
+
+  var path;
   PageController pageController = PageController();
 
   var font30White = TextStyle(
     fontSize: 30,
     color: Colors.white,
   );
+
+  void retrievePathResult(input) {
+    setState(() => {path = input});
+    print("MOTHERFUCKERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+    print(path);
+  }
 
   @override
   void initState() {
@@ -136,12 +145,14 @@ class MainBodyState extends State<MainBody> {
                     },
                     onWillAccept: (data) {
                       print("onWillAccept");
-
                       return true;
                     },
                     onAccept: (data) {
                       print("onAccept");
-                      print(data.id);
+                      getPath(data.route, retrievePathResult);
+                      print("I just set state TESTING:");
+                      print(path);
+
                       if (data.id != 0) {
                         setState(() {
                           successfulDrop = true;
@@ -154,7 +165,7 @@ class MainBodyState extends State<MainBody> {
                     },
                   ),
                   //Google Map
-                  GoogleMapWidget()
+                  GoogleMapWidget(passInPathList: path)
                 ],
               ),
             ),

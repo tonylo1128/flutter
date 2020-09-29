@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kmb/PathTimer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 // import 'package:kmb/Indicator.dart';
 import 'GoogleMapWidget.dart';
@@ -23,6 +24,7 @@ class MainBodyState extends State<MainBody> {
 
   var path;
   PageController pageController = PageController();
+  
 
   var font30White = TextStyle(
     fontSize: 30,
@@ -47,8 +49,8 @@ class MainBodyState extends State<MainBody> {
   @override
   Widget build(BuildContext context) {
     var ogSize = MediaQuery.of(context).size;
-
     print(ogSize);
+
 
     return Column(
       children: <Widget>[
@@ -165,13 +167,14 @@ class MainBodyState extends State<MainBody> {
                     },
                   ),
                   //Google Map
-                  GoogleMapWidget(passInPathList: path)
+                  GoogleMapWidget(passInPathList: path),
+                  PathTimer(passInTargetRoute: dragSuccessTemp.route)
                 ],
               ),
             ),
             SmoothPageIndicator(
               controller: pageController,
-              count: 2,
+              count: 3,
               effect: SlideEffect(),
             ),
           ],

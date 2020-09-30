@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 
-class PathTimer extends StatefulWidget{
-  final passInTargetRoute;
-  const PathTimer({this.passInTargetRoute});
+class PathTimer extends StatefulWidget {
+  final passInStopList;
+  const PathTimer({this.passInStopList});
 
   @override
-  PathTimerState createState()=> PathTimerState();
+  PathTimerState createState() => PathTimerState();
 }
 
-class PathTimerState extends State<PathTimer>{
-
+class PathTimerState extends State<PathTimer> {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return ListView(
       children: [
-        widget.passInTargetRoute!=null ?
-          Text(widget.passInTargetRoute, style: TextStyle(color: Colors.white),)
-        :
-          Text("Error null here")
-        
-        
-        
+        widget.passInStopList != null
+            ? Text(
+                widget.passInStopList[0],
+                style: TextStyle(color: Colors.white),
+              )
+            : Text("Error null here")
       ],
     );
   }

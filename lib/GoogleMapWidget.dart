@@ -13,9 +13,7 @@ class GoogleMapWidget extends StatefulWidget {
 class GoogleMapWidgetState extends State<GoogleMapWidget>
     with AutomaticKeepAliveClientMixin {
   GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(22.395264, 114.125875);
-
+  var _center = LatLng(22.395264, 114.125875);
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
@@ -26,7 +24,10 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
       polylines: widget.passInPathList,
       onMapCreated: _onMapCreated,
       initialCameraPosition: CameraPosition(
-        target: _center,
+        target: widget.passInPathList != null
+            ? widget.passInPathList.elementAt(0).points[
+                (widget.passInPathList.elementAt(0).points.length / 2).round()]
+            : _center,
         zoom: 11.0,
       ),
     );

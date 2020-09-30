@@ -9,8 +9,8 @@ import 'apiCall/getData/getData.dart';
 typedef BusDataCallback = void Function(List<ChallengeData> resultInput);
 
 class SearchTextField extends StatefulWidget {
-  const SearchTextField({this.passInFunction});
   final BusDataCallback passInFunction;
+  const SearchTextField({this.passInFunction});
 
   @override
   SearchTextFieldState createState() => SearchTextFieldState();
@@ -52,15 +52,12 @@ class SearchTextFieldState extends State<SearchTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return new RawKeyboardListener(
-      focusNode: _focusNode,
-      child: TextField(
-        //controller can be replace by onChange, but controller allow us do more staff
-        controller: testController,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: 'input keywords here',
-        ),
+    return new TextField(
+      //controller can be replace by onChange, but controller allow us do more staff
+      controller: testController,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'input keywords here',
       ),
     );
   }

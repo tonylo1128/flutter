@@ -16,7 +16,7 @@ List<ChallengeData> _result = List<ChallengeData>();
 
 Future<List<ChallengeData>> fetchData() async {
   // final response = await http.get(testingServer + "/getdata?page0&per_page=1");
-  final response = await http.get(testingServer);
+  final response = await http.get(localhost);
 
   if (response.statusCode == 200) {
     temp = json.decode(response.body)['recieveRespFromkmbDataRepos'];
@@ -46,8 +46,8 @@ Future<List<ChallengeData>> search(String keyword) async {
     'Accept': 'application/json',
   };
 
-  var response = await http.post(testingServer + "/seaching",
-      headers: headers, body: params);
+  var response =
+      await http.post(localhost + "/seaching", headers: headers, body: params);
 
   if (response.statusCode == 200) {
     print("call api works");
@@ -66,10 +66,12 @@ Future<List<ChallengeData>> search(String keyword) async {
   return _result;
 }
 
-Future<List> getPath(String keyword, Function passInFunction) async {
+getPath(String keyword, Function passInFunction,
+    Function passInRetrieveStop) async {
   print("I am in getPath function");
 
   var temp;
+  var stop;
   List<LatLng> convertResult = [];
   Set<Polyline> polyline = {};
 
@@ -83,13 +85,13 @@ Future<List> getPath(String keyword, Function passInFunction) async {
     temp = temp.replaceAll("paths", '"paths"');
     temp = json.decode(temp)['paths'];
 
-    // print(temp);
+    stop = json.decode(response.body)['data']['routeStops'];
+    passInRetrieveStop(eachStop(stop));
 
     for (List i in temp) {
       for (var target in i) {
         convertResult.add(convertCoord(target));
       }
-      // print(convertResult);
     }
   } else
     print("cant get path !!!!");
@@ -106,4 +108,14 @@ Future<List> getPath(String keyword, Function passInFunction) async {
   passInFunction(polyline);
 
   // return convertResult;
+}
+
+eachStop(input) {
+  List<String> allStop = [];
+  print(input);
+  for (var i in input) {
+    allStop.add(i['CName']);
+  }
+  print(allStop);
+  return allStop;
 }

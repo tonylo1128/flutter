@@ -23,8 +23,9 @@ class MainBodyState extends State<MainBody> {
   var dragSuccessTemp;
 
   var path;
+  var centerPoint;
+  var allStop;
   PageController pageController = PageController();
-  
 
   var font30White = TextStyle(
     fontSize: 30,
@@ -34,7 +35,13 @@ class MainBodyState extends State<MainBody> {
   void retrievePathResult(input) {
     setState(() => {path = input});
     print("MOTHERFUCKERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
-    print(path);
+    print(path
+        .elementAt(0)
+        .points[(path.elementAt(0).points.length / 2).round()]);
+  }
+
+  void retrieveStop(input) {
+    setState(() => {allStop = input});
   }
 
   @override
@@ -50,7 +57,6 @@ class MainBodyState extends State<MainBody> {
   Widget build(BuildContext context) {
     var ogSize = MediaQuery.of(context).size;
     print(ogSize);
-
 
     return Column(
       children: <Widget>[
@@ -123,6 +129,10 @@ class MainBodyState extends State<MainBody> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
+                                  dragSuccessTemp.company,
+                                  style: font30White,
+                                ),
+                                Text(
                                   dragSuccessTemp.startingPoint,
                                   style: font30White,
                                 ),
@@ -151,7 +161,7 @@ class MainBodyState extends State<MainBody> {
                     },
                     onAccept: (data) {
                       print("onAccept");
-                      getPath(data.route, retrievePathResult);
+                      getPath(data.route, retrievePathResult, retrieveStop);
                       print("I just set state TESTING:");
                       print(path);
 
@@ -168,7 +178,7 @@ class MainBodyState extends State<MainBody> {
                   ),
                   //Google Map
                   GoogleMapWidget(passInPathList: path),
-                  PathTimer(passInTargetRoute: dragSuccessTemp!=null?dragSuccessTemp.route:"")
+                  PathTimer(passInStopList: allStop != null ? allStop : null)
                 ],
               ),
             ),

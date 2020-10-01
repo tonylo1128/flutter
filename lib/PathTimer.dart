@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kmb/ListItem.dart';
 
 class PathTimer extends StatefulWidget {
   final passInStopList;
@@ -14,9 +15,14 @@ class PathTimerState extends State<PathTimer> {
     return ListView(
       children: [
         widget.passInStopList != null
-            ? Text(
-                widget.passInStopList[0],
-                style: TextStyle(color: Colors.white),
+            ? Column(
+                children: [
+                  ...(widget.passInStopList as List<String>)
+                      .map((passInData) => ListItem(
+                            passInPathList: passInData,
+                          ))
+                      .toList()
+                ],
               )
             : Text("Error null here")
       ],

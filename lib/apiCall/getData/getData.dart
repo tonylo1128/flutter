@@ -9,7 +9,8 @@ import 'dart:convert';
 import 'ConvertCoord.dart';
 
 var testingServer = "https://testing-server1128.herokuapp.com";
-var localhost = "http://10.192.32.43:8081";
+// var localhost = "http://10.192.32.43:8081";
+var localhost = "http://192.168.8.244:8081";
 
 List<dynamic> temp;
 List<ChallengeData> _result = List<ChallengeData>();
@@ -66,8 +67,8 @@ Future<List<ChallengeData>> search(String keyword) async {
   return _result;
 }
 
-getPath(String keyword, Function passInFunction,
-    Function passInRetrieveStop) async {
+getPath(String keyword, Function passInFunction, Function passInRetrieveStop,
+    String passInTargetBound, String passInTargetServiceType) async {
   print("I am in getPath function");
 
   var temp;
@@ -78,7 +79,10 @@ getPath(String keyword, Function passInFunction,
   var response = await http.post(
       "http://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getstops&route=" +
           keyword +
-          "&serviceType=1&bound=1");
+          "&serviceType=" +
+          passInTargetServiceType +
+          "&bound=" +
+          passInTargetBound);
 
   if (response.statusCode == 200) {
     temp = json.decode(response.body)['data']['route']['lineGeometry'];
@@ -86,6 +90,8 @@ getPath(String keyword, Function passInFunction,
     temp = json.decode(temp)['paths'];
 
     stop = json.decode(response.body)['data']['routeStops'];
+    print("======!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    print(stop);
     passInRetrieveStop(eachStop(stop));
 
     for (List i in temp) {
@@ -118,4 +124,18 @@ eachStop(input) {
   }
   print(allStop);
   return allStop;
+}
+
+getBound(inputRoute, Function passInSetBoundResult) async {
+  print("i am inside la !");
+  print(inputRoute);
+
+  var resp = await http.get(
+      "http://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getroutebound&route=" +
+          inputRoute);
+  print("testingggg");
+
+  var temp = json.decode(resp.body)['data'];
+  passInSetBoundResult(temp);
+  print(temp);
 }

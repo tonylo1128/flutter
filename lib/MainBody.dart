@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kmb/DifferentBound.dart';
 import 'package:kmb/PathTimer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 // import 'package:kmb/Indicator.dart';
@@ -26,6 +27,7 @@ class MainBodyState extends State<MainBody> {
   var centerPoint;
   var allStop;
   PageController pageController = PageController();
+  var boundResultList;
 
   var font30White = TextStyle(
     fontSize: 30,
@@ -34,14 +36,15 @@ class MainBodyState extends State<MainBody> {
 
   void retrievePathResult(input) {
     setState(() => {path = input});
-    print("MOTHERFUCKERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
-    print(path
-        .elementAt(0)
-        .points[(path.elementAt(0).points.length / 2).round()]);
   }
 
   void retrieveStop(input) {
+    // print("MOTHERFUCKERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
     setState(() => {allStop = input});
+  }
+
+  void retrieveBound(input) {
+    setState(() => {boundResultList = input});
   }
 
   @override
@@ -161,10 +164,11 @@ class MainBodyState extends State<MainBody> {
                     },
                     onAccept: (data) {
                       print("onAccept");
-                      getPath(data.route, retrievePathResult, retrieveStop);
-                      print("I just set state TESTING:");
-                      print(path);
+                      // getPath(data.route, retrievePathResult, retrieveStop);
+                      // print("I just set state TESTING:");
+                      // print(path);
 
+                      getBound(data.route, retrieveBound);
                       if (data.id != 0) {
                         setState(() {
                           successfulDrop = true;
@@ -177,6 +181,12 @@ class MainBodyState extends State<MainBody> {
                     },
                   ),
                   //Google Map
+                  DifferentBound(
+                    passInGetBoundResult: boundResultList,
+                    passInDroppedData: dragSuccessTemp,
+                    mainBodyRetrievePathResult: retrievePathResult,
+                    mainBodyeRtrieveStop: retrieveStop,
+                  ),
                   GoogleMapWidget(passInPathList: path),
                   PathTimer(passInStopList: allStop != null ? allStop : null)
                 ],
@@ -184,7 +194,7 @@ class MainBodyState extends State<MainBody> {
             ),
             SmoothPageIndicator(
               controller: pageController,
-              count: 3,
+              count: 4,
               effect: SlideEffect(),
             ),
           ],

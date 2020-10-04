@@ -8,11 +8,16 @@ class DifferentBound extends StatefulWidget {
   final mainBodyRetrievePathResult;
   final mainBodyeRtrieveStop;
 
+  final passInPageController;
+  final passInBoundBasicInfo;
+
   const DifferentBound(
       {this.passInGetBoundResult,
       this.passInDroppedData,
       this.mainBodyRetrievePathResult,
-      this.mainBodyeRtrieveStop});
+      this.mainBodyeRtrieveStop,
+      this.passInPageController,
+      this.passInBoundBasicInfo});
 
   @override
   DifferentBoundState createState() => DifferentBoundState();
@@ -31,67 +36,114 @@ class DifferentBoundState extends State<DifferentBound> {
           ? Column(
               children: [
                 ...(widget.passInGetBoundResult as List)
-                    .map(
-                      (item) => Row(
-                        children: [
-                          Expanded(
-                            flex: 9,
-                            child: Container(
-                                child: Row(
+                    .map((item) => Column(
+                          children: [
+                            // the starting point and destination;
+                            widget.passInBoundBasicInfo != null
+                                ? Row(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: Text(
+                                          widget.passInBoundBasicInfo[widget
+                                              .passInGetBoundResult
+                                              .indexOf(item)][0],
+                                          style: font20White,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: Text(
+                                          widget.passInBoundBasicInfo[widget
+                                              .passInGetBoundResult
+                                              .indexOf(item)][1],
+                                          style: font20White,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : Text("Nth in here la"),
+
+                            // the "Bound:$num Service Type:$num" widget
+                            Row(
                               children: [
-                                Container(
-                                  color: Colors.red,
-                                  margin: EdgeInsets.only(left: 5, right: 5),
-                                  child: Text(
-                                    "Bound:",
-                                    style: font20White,
-                                  ),
+                                Expanded(
+                                  flex: 9,
+                                  child: Container(
+                                      child: Row(
+                                    children: [
+                                      Container(
+                                        color: Colors.red,
+                                        margin:
+                                            EdgeInsets.only(left: 10, right: 5),
+                                        child: Text(
+                                          "Bound:",
+                                          style: font20White,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin:
+                                            EdgeInsets.only(left: 0, right: 5),
+                                        child: Text(
+                                          item['BOUND'].toString(),
+                                          style: font20White,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin:
+                                            EdgeInsets.only(left: 0, right: 5),
+                                        child: Text(
+                                          "Service Type:",
+                                          style: font20White,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(),
+                                        child: Text(
+                                          item['SERVICE_TYPE'].toString(),
+                                          style: font20White,
+                                        ),
+                                      ),
+                                    ],
+                                  )),
                                 ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 0, right: 5),
-                                  child: Text(
-                                    item['BOUND'].toString(),
-                                    style: font20White,
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 0, right: 5),
-                                  child: Text(
-                                    "Service Type:",
-                                    style: font20White,
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(),
-                                  child: Text(
-                                    item['SERVICE_TYPE'].toString(),
-                                    style: font20White,
-                                  ),
-                                ),
-                              ],
-                            )),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                                child: IconButton(
-                                    icon: IconButton(
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    child: IconButton(
+                                      highlightColor: Colors.red,
+                                      color: Colors.blue,
                                       icon: Icon(Icons.arrow_downward),
                                       onPressed: () => {
                                         getPath(
-                                            widget.passInDroppedData.route,
-                                            widget.mainBodyRetrievePathResult,
-                                            widget.mainBodyeRtrieveStop,
-                                            item['BOUND'].toString(),
-                                            item['SERVICE_TYPE'].toString())
+                                          widget.passInDroppedData.route,
+                                          widget.mainBodyRetrievePathResult,
+                                          widget.mainBodyeRtrieveStop,
+                                          item['BOUND'].toString(),
+                                          item['SERVICE_TYPE'].toString(),
+                                        ),
+                                        if (widget
+                                            .passInPageController.hasClients)
+                                          {
+                                            widget.passInPageController
+                                                .animateToPage(
+                                              2,
+                                              duration: const Duration(
+                                                  milliseconds: 400),
+                                              curve: Curves.easeInOut,
+                                            )
+                                          }
                                       },
                                     ),
-                                    onPressed: null)),
-                          )
-                        ],
-                      ),
-                    )
-                    .toList()
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ))
+                    .toList(),
               ],
             )
           : Align(

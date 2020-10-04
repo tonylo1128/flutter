@@ -28,6 +28,7 @@ class MainBodyState extends State<MainBody> {
   var allStop;
   PageController pageController = PageController();
   var boundResultList;
+  var boundBasicInfo;
 
   var font30White = TextStyle(
     fontSize: 30,
@@ -45,6 +46,15 @@ class MainBodyState extends State<MainBody> {
 
   void retrieveBound(input) {
     setState(() => {boundResultList = input});
+  }
+
+  void retrieveBoundBasicInfo(input) {
+    setState(() {
+      boundBasicInfo = input;
+    });
+    print(
+        "-----------------------------------------------------------------------");
+    print(boundBasicInfo);
   }
 
   @override
@@ -147,6 +157,33 @@ class MainBodyState extends State<MainBody> {
                                   dragSuccessTemp.destination,
                                   style: font30White,
                                 ),
+                                Container(
+                                  margin: EdgeInsets.only(top: 35),
+                                  child: RaisedButton(
+                                    child: Text(
+                                      "Next Page",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    color: Colors.redAccent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(18),
+                                    ),
+                                    onPressed: () {
+                                      print("testing ");
+                                      if (pageController.hasClients) {
+                                        pageController.animateToPage(
+                                          1,
+                                          duration:
+                                              const Duration(milliseconds: 400),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      }
+                                    },
+                                  ),
+                                )
                               ],
                             )
                           : Align(
@@ -162,13 +199,18 @@ class MainBodyState extends State<MainBody> {
                       print("onWillAccept");
                       return true;
                     },
-                    onAccept: (data) {
+                    onAccept: (data) async {
                       print("onAccept");
                       // getPath(data.route, retrievePathResult, retrieveStop);
                       // print("I just set state TESTING:");
                       // print(path);
 
-                      getBound(data.route, retrieveBound);
+                      await getBound(
+                          data.route, retrieveBound, retrieveBoundBasicInfo);
+
+                      await getBoundBasicInfo(
+                          boundResultList, retrieveBoundBasicInfo);
+                      // boundResultList
                       if (data.id != 0) {
                         setState(() {
                           successfulDrop = true;
@@ -182,13 +224,14 @@ class MainBodyState extends State<MainBody> {
                   ),
                   //Google Map
                   DifferentBound(
-                    passInGetBoundResult: boundResultList,
-                    passInDroppedData: dragSuccessTemp,
-                    mainBodyRetrievePathResult: retrievePathResult,
-                    mainBodyeRtrieveStop: retrieveStop,
-                  ),
+                      passInGetBoundResult: boundResultList,
+                      passInDroppedData: dragSuccessTemp,
+                      mainBodyRetrievePathResult: retrievePathResult,
+                      mainBodyeRtrieveStop: retrieveStop,
+                      passInPageController: pageController,
+                      passInBoundBasicInfo: boundBasicInfo),
+                  PathTimer(passInStopList: allStop != null ? allStop : null),
                   GoogleMapWidget(passInPathList: path),
-                  PathTimer(passInStopList: allStop != null ? allStop : null)
                 ],
               ),
             ),

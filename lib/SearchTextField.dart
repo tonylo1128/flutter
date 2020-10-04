@@ -30,6 +30,8 @@ class SearchTextFieldState extends State<SearchTextField> {
       if (testController.text != null) {
         var temp = await search(testController.text);
         widget.passInFunction(temp);
+        print("!!!!!!~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        print(testController.text);
       }
     });
   }

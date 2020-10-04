@@ -35,6 +35,7 @@ Future<List<ChallengeData>> fetchData() async {
 
 Future<List<ChallengeData>> search(String keyword) async {
   print("I am in search function ar !");
+  print(keyword);
 
   List<dynamic> temp;
   List<ChallengeData> _result = new List<ChallengeData>();
@@ -50,13 +51,8 @@ Future<List<ChallengeData>> search(String keyword) async {
   var response =
       await http.post(localhost + "/seaching", headers: headers, body: params);
 
-  if (response.statusCode == 200) {
-    print("call api works");
-  } else {
-    print("Some went wrong with api call $response.statusCode");
-  }
-
   temp = json.decode(response.body)['returnResp'];
+  print(temp);
   for (var item in temp) {
     _result.add(
       ChallengeData.fromJson(item),
@@ -90,8 +86,6 @@ getPath(String keyword, Function passInFunction, Function passInRetrieveStop,
     temp = json.decode(temp)['paths'];
 
     stop = json.decode(response.body)['data']['routeStops'];
-    print("======!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    print(stop);
     passInRetrieveStop(eachStop(stop));
 
     for (List i in temp) {
@@ -126,7 +120,8 @@ eachStop(input) {
   return allStop;
 }
 
-getBound(inputRoute, Function passInSetBoundResult) async {
+getBound(inputRoute, Function passInSetBoundResult,
+    Function retrieveBoundBasicInfo) async {
   print("i am inside la !");
   print(inputRoute);
 
@@ -137,5 +132,31 @@ getBound(inputRoute, Function passInSetBoundResult) async {
 
   var temp = json.decode(resp.body)['data'];
   passInSetBoundResult(temp);
+  //for bound details, pass back to MainBody.dart and then pass to DifferentBound.dart
+
   print(temp);
+}
+
+getBoundBasicInfo(boundList, Function retrieveBoundBasicInfo) async {
+  List resultTemp = [];
+  print("GOD DAMN ITTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+  print(boundList);
+  for (var i in boundList) {
+    var response = await http.post(
+        "http://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getstops&route=" +
+            i["ROUTE"] +
+            "&serviceType=" +
+            i["SERVICE_TYPE"].toString() +
+            "&bound=" +
+            i["BOUND"].toString());
+
+    var reformatTemp = [
+      json.decode(response.body)['data']['basicInfo']['OriCName'],
+      json.decode(response.body)['data']['basicInfo']['DestCName']
+    ];
+    resultTemp.add(reformatTemp);
+  }
+  print("!!!!!");
+  print(resultTemp);
+  retrieveBoundBasicInfo(resultTemp);
 }

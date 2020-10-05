@@ -7,6 +7,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 // import 'package:kmb/Indicator.dart';
 import 'GoogleMapWidget.dart';
 import 'KmbCard.dart';
+import 'ShowTimerResult.dart';
 import 'apiCall/getData/getData.dart';
 import 'apiCall/getData/ChallengeDataJson.dart';
 
@@ -29,6 +30,7 @@ class MainBodyState extends State<MainBody> {
   PageController pageController = PageController();
   var boundResultList;
   var boundBasicInfo;
+  var timeResult;
 
   var font30White = TextStyle(
     fontSize: 30,
@@ -52,9 +54,14 @@ class MainBodyState extends State<MainBody> {
     setState(() {
       boundBasicInfo = input;
     });
-    print(
-        "-----------------------------------------------------------------------");
-    print(boundBasicInfo);
+  }
+
+  void retrieveTimeResult(input) {
+    setState(() {
+      timeResult = input;
+    });
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    print(timeResult);
   }
 
   @override
@@ -230,14 +237,18 @@ class MainBodyState extends State<MainBody> {
                       mainBodyeRtrieveStop: retrieveStop,
                       passInPageController: pageController,
                       passInBoundBasicInfo: boundBasicInfo),
-                  PathTimer(passInStopList: allStop != null ? allStop : null),
+                  PathTimer(
+                      passInStopList: allStop != null ? allStop : null,
+                      passInController: pageController,
+                      passInRetrieveTimeResult: retrieveTimeResult),
+                  ShowTimerResult(passInResultList: timeResult),
                   GoogleMapWidget(passInPathList: path),
                 ],
               ),
             ),
             SmoothPageIndicator(
               controller: pageController,
-              count: 4,
+              count: 5,
               effect: SlideEffect(),
             ),
           ],

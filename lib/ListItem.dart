@@ -6,7 +6,10 @@ class ListItem extends StatefulWidget {
   final passInCheckAndSetTime;
   final passInMoveDown;
   const ListItem(
-      {this.passInPathList, this.passInIndex, this.passInCheckAndSetTime, this.passInMoveDown});
+      {this.passInPathList,
+      this.passInIndex,
+      this.passInCheckAndSetTime,
+      this.passInMoveDown});
 
   @override
   ListItemState createState() => ListItemState();
@@ -41,16 +44,13 @@ class ListItemState extends State<ListItem> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: IconButton(
-                    color: Colors.blue,
-                    icon: Icon(Icons.timer),
-                    onPressed: () => {
-                      widget.passInCheckAndSetTime(
-                          widget.passInIndex, widget.passInPathList),
-                          widget.passInMoveDown(60),
-                      // time.add(new DateTime.now()),
-                      // print(widget.passInIndex)
-                    },
-                  ),
+                      color: Colors.blue,
+                      icon: Icon(Icons.timer),
+                      onPressed: () => {
+                            widget.passInCheckAndSetTime(
+                                widget.passInIndex, widget.passInPathList),
+                            widget.passInMoveDown(60),
+                          }),
                 ),
               ],
             ),

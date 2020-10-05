@@ -29,6 +29,7 @@ dependencies:
   google_maps_flutter: ^0.5.33
   proj4dart: ^1.0.5
   flutter_dotenv: ^2.1.0
+  intl: ^0.16.1
   
 
 

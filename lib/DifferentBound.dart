@@ -67,6 +67,7 @@ class DifferentBoundState extends State<DifferentBound> {
                                 : Text("Nth in here la"),
 
                             // the "Bound:$num Service Type:$num" widget
+
                             Row(
                               children: [
                                 Expanded(
@@ -140,7 +141,13 @@ class DifferentBoundState extends State<DifferentBound> {
                                   ),
                                 ),
                               ],
-                            )
+                            ),
+                            const Divider(
+                              color: Colors.white,
+                              thickness: 1,
+                              indent: 5,
+                              endIndent: 5,
+                            ),
                           ],
                         ))
                     .toList(),

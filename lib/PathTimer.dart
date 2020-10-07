@@ -3,6 +3,7 @@ import 'package:kmb/ListItem.dart';
 import 'package:intl/intl.dart';
 
 import 'Helper.dart';
+import 'ShowTimerResult/ConvertResultToString.dart';
 
 class PathTimer extends StatefulWidget {
   final passInStopList;
@@ -59,6 +60,7 @@ class PathTimerState extends State<PathTimer>
       }
       assignToChildGorbalTime = bubbleSort(assignToChildGorbalTime);
       print(assignToChildGorbalTime);
+      convertResultToString(assignToChildGorbalTime);
       widget.passInRetrieveTimeResult(assignToChildGorbalTime);
     });
   }
@@ -109,6 +111,7 @@ class PathTimerState extends State<PathTimer>
                             curve: Curves.easeInOut,
                           );
                         }
+                        
                       },
                       child: Text(
                         "Check your result",

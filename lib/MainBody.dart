@@ -7,7 +7,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 // import 'package:kmb/Indicator.dart';
 import 'GoogleMapWidget.dart';
 import 'KmbCard.dart';
-import 'ShowTimerResult.dart';
+import 'ShowTimerResult/ShowTimerResult.dart';
 import 'apiCall/getData/getData.dart';
 import 'apiCall/getData/ChallengeDataJson.dart';
 

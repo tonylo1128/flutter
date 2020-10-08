@@ -20,7 +20,23 @@ class PathTimer extends StatefulWidget {
 
 class PathTimerState extends State<PathTimer>
     with AutomaticKeepAliveClientMixin {
+  ScrollController _controller;
   List<List> assignToChildGorbalTime = [];
+
+  List buttonAvailabilityList = [];
+  void buttonAvailability() {
+    if (widget.passInStopList.length() > 0) {
+      for (var i in widget.passInStopList) {
+        if (widget.passInStopList.indexOf(i) == 0) {
+          buttonAvailabilityList.add([widget.passInStopList.indexOf(i), true]);
+        } else {
+          buttonAvailabilityList.add([widget.passInStopList.indexOf(i), false]);
+        }
+      }
+    }
+    print("123456789101112131415161718192021222324252627282930");
+    print(buttonAvailabilityList);
+  }
 
   void setPassInGorbalTime(inputIndex, inputStationName) {
     var changeTargetIndex = -3;
@@ -60,16 +76,15 @@ class PathTimerState extends State<PathTimer>
       }
       assignToChildGorbalTime = bubbleSort(assignToChildGorbalTime);
       print(assignToChildGorbalTime);
-      convertResultToString(assignToChildGorbalTime);
-      widget.passInRetrieveTimeResult(assignToChildGorbalTime);
     });
+    convertResultToString(assignToChildGorbalTime);
+    widget.passInRetrieveTimeResult(assignToChildGorbalTime);
   }
 
-  ScrollController _controller;
   @override
   void initState() {
-    _controller = ScrollController();
     super.initState();
+    _controller = ScrollController();
   }
 
   moveDown(inputItemHeight) {
@@ -93,6 +108,7 @@ class PathTimerState extends State<PathTimer>
                 children: [
                   ...(widget.passInStopList as List<String>)
                       .map((passInData) => ListItem(
+                          key: UniqueKey(),
                           passInPathList: passInData,
                           passInIndex:
                               widget.passInStopList.indexOf(passInData),
@@ -111,7 +127,6 @@ class PathTimerState extends State<PathTimer>
                             curve: Curves.easeInOut,
                           );
                         }
-                        
                       },
                       child: Text(
                         "Check your result",

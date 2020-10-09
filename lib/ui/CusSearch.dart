@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'apiCall/getData/getData.dart';
+import '../apiCall/getData/getData.dart';
 
 class CusSearch extends SearchDelegate {
   //textfild label

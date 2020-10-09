@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'apiCall/getData/getData.dart';
-import 'apiCall/getData/ChallengeDataJson.dart';
+import '../apiCall/getData/ChallengeDataJson.dart';
 
 class KmbCard extends StatefulWidget {
   final ChallengeData passInData;

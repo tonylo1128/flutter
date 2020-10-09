@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-import 'apiCall/getData/ChallengeDataJson.dart';
-import 'apiCall/getData/getData.dart';
+import '../apiCall/getData/ChallengeDataJson.dart';
+import '../apiCall/getData/getData.dart';
 
 typedef BusDataCallback = void Function(List<ChallengeData> resultInput);
 

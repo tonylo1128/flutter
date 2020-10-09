@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:kmb/DifferentBound.dart';
-import 'package:kmb/PathTimer.dart';
+// import 'package:kmb/DifferentBound.dart';
+// import 'package:kmb/PathTimer.dart';
+
+import 'DifferentBound.dart';
+import 'PathTimer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 // import 'package:kmb/Indicator.dart';
 import 'GoogleMapWidget.dart';
 import 'KmbCard.dart';
 import 'ShowTimerResult/ShowTimerResult.dart';
-import 'apiCall/getData/getData.dart';
-import 'apiCall/getData/ChallengeDataJson.dart';
+import '../apiCall/getData/getData.dart';
+import '../apiCall/getData/ChallengeDataJson.dart';
 
 class MainBody extends StatefulWidget {
   final List<ChallengeData> passInData;

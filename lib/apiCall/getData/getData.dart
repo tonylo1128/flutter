@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:kmb/redux/buttonAvailabilityList/ButtonListAction.dart';
+import 'package:kmb/redux/buttonAvailabilityList/ButtonListState.dart';
 import 'ChallengeDataJson.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_redux/flutter_redux.dart';
 
 import 'ConvertCoord.dart';
 
@@ -17,7 +20,7 @@ List<ChallengeData> _result = List<ChallengeData>();
 
 Future<List<ChallengeData>> fetchData() async {
   // final response = await http.get(testingServer + "/getdata?page0&per_page=1");
-  final response = await http.get(localhost);
+  final response = await http.get(testingServer);
 
   if (response.statusCode == 200) {
     temp = json.decode(response.body)['recieveRespFromkmbDataRepos'];
@@ -49,7 +52,7 @@ Future<List<ChallengeData>> search(String keyword) async {
   };
 
   var response =
-      await http.post(localhost + "/seaching", headers: headers, body: params);
+      await http.post(testingServer + "/seaching", headers: headers, body: params);
 
   temp = json.decode(response.body)['returnResp'];
   print(temp);
@@ -63,8 +66,11 @@ Future<List<ChallengeData>> search(String keyword) async {
   return _result;
 }
 
+
+
+
 getPath(String keyword, Function passInFunction, Function passInRetrieveStop,
-    String passInTargetBound, String passInTargetServiceType) async {
+    String passInTargetBound, String passInTargetServiceType, Function retrieveStopFromDifferentBound) async {
   print("I am in getPath function");
 
   var temp;
@@ -86,7 +92,16 @@ getPath(String keyword, Function passInFunction, Function passInRetrieveStop,
     temp = json.decode(temp)['paths'];
 
     stop = json.decode(response.body)['data']['routeStops'];
-    passInRetrieveStop(eachStop(stop));
+
+    //the return of "eachStop" resp is List<String>
+    var resp = eachStop(stop);
+    retrieveStopFromDifferentBound(resp);
+    //Redux here !!!!
+    
+
+
+
+    passInRetrieveStop(resp);
 
     for (List i in temp) {
       for (var target in i) {
@@ -109,6 +124,9 @@ getPath(String keyword, Function passInFunction, Function passInRetrieveStop,
 
   // return convertResult;
 }
+
+
+
 
 eachStop(input) {
   List<String> allStop = [];

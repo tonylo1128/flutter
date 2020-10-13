@@ -6,12 +6,11 @@ class ListItem extends StatefulWidget {
   final passInCheckAndSetTime;
   final passInMoveDown;
   const ListItem(
-      {Key key,
+      {
       this.passInPathList,
       this.passInIndex,
       this.passInCheckAndSetTime,
-      this.passInMoveDown})
-      : super(key: key);
+      this.passInMoveDown});
 
   @override
   ListItemState createState() => ListItemState();
@@ -20,18 +19,8 @@ class ListItem extends StatefulWidget {
 class ListItemState extends State<ListItem> {
   List time = [];
   var timeTemp;
-  bool availability = false;
 
-  @override
-  void initState() {
-    if (widget.passInIndex == 0) {
-      setState(() {
-        availability = true;
-      });
-    }
-  }
 
-  void setNextBtnAvailability() {}
 
   @override
   Widget build(BuildContext context) {
@@ -60,21 +49,15 @@ class ListItemState extends State<ListItem> {
                   child: IconButton(
                       color: Colors.blue,
                       icon: Icon(Icons.timer),
-                      onPressed: availability
-                          ? () => {
+                      onPressed: 
+                          () => {
                                 widget.passInCheckAndSetTime(
                                     widget.passInIndex, widget.passInPathList),
                                 widget.passInMoveDown(60),
-                              }
-                          : null),
+                              },
+                  ),
                 ),
               ],
-            ),
-          ),
-          Text(
-            widget.key.toString(),
-            style: TextStyle(
-              color: Colors.white,
             ),
           ),
         ],

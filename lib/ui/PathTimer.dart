@@ -109,7 +109,6 @@ class PathTimerState extends State<PathTimer>
                 children: [
                   ...(widget.passInStopList as List<String>)
                       .map((passInData) => ListItem(
-                          key: UniqueKey(),
                           passInPathList: passInData,
                           passInIndex:
                               widget.passInStopList.indexOf(passInData),

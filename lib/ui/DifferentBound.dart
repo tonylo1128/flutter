@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kmb/apiCall/getData/getData.dart';
+import 'package:kmb/redux/buttonAvailabilityList/buttonListAction.dart';
+import 'package:kmb/redux/states.dart';
+import 'package:kmb/redux/store.dart';
 
 class DifferentBound extends StatefulWidget {
   final passInGetBoundResult;
@@ -28,6 +32,13 @@ class DifferentBoundState extends State<DifferentBound> {
     fontSize: 20,
     color: Colors.white,
   );
+
+  var passInRetrieveStopFromDifferentBound;
+  retrieveStopFromDifferentBound(input){
+    setState(() {
+      passInRetrieveStopFromDifferentBound = input;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,13 +129,17 @@ class DifferentBoundState extends State<DifferentBound> {
                                       color: Colors.blue,
                                       icon: Icon(Icons.arrow_downward),
                                       onPressed: () => {
+                                        
                                         getPath(
                                           widget.passInDroppedData.route,
                                           widget.mainBodyRetrievePathResult,
                                           widget.mainBodyeRtrieveStop,
                                           item['BOUND'].toString(),
                                           item['SERVICE_TYPE'].toString(),
+                                          retrieveStopFromDifferentBound,
                                         ),
+                                        StoreProvider.of<ButtonListState>(context).dispatch(ButtonListAction(passInRetrieveStopFromDifferentBound)),
+                                        print("testing mother fucker ${store.state.availableList}"),
                                         if (widget
                                             .passInPageController.hasClients)
                                           {
@@ -136,6 +151,7 @@ class DifferentBoundState extends State<DifferentBound> {
                                               curve: Curves.easeInOut,
                                             )
                                           }
+                                          
                                       },
                                     ),
                                   ),

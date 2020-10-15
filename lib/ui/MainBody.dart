@@ -16,7 +16,8 @@ import '../apiCall/getData/ChallengeDataJson.dart';
 
 class MainBody extends StatefulWidget {
   final List<ChallengeData> passInData;
-  const MainBody({this.passInData});
+  final Function passIndispatchAction;
+  const MainBody({this.passInData, this.passIndispatchAction});
 
   @override
   MainBodyState createState() => MainBodyState();
@@ -45,7 +46,6 @@ class MainBodyState extends State<MainBody> {
   }
 
   void retrieveStop(input) {
-    // print("MOTHERFUCKERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
     setState(() => {allStop = input});
   }
 
@@ -63,8 +63,20 @@ class MainBodyState extends State<MainBody> {
     setState(() {
       timeResult = input;
     });
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    print("we are in retrieveTimeResult function~");
+  }
+
+  void resetTimeResult() {
     print(timeResult);
+    setState(() {
+      timeResult = [];
+    });
+    print("we are in resetTimeResult~~~~~~~~~~~~~~~~~~~~");
+  }
+
+  Function resetAssignToChildGorbalTime;
+  void retrieveResetAssignToChildGorbalTime(input) {
+    resetAssignToChildGorbalTime = input;
   }
 
   @override
@@ -182,7 +194,7 @@ class MainBodyState extends State<MainBody> {
                                           new BorderRadius.circular(18),
                                     ),
                                     onPressed: () {
-                                      print("testing ");
+                                      print("press on first page 'Next Page'");
                                       if (pageController.hasClients) {
                                         pageController.animateToPage(
                                           1,
@@ -211,9 +223,6 @@ class MainBodyState extends State<MainBody> {
                     },
                     onAccept: (data) async {
                       print("onAccept");
-                      // getPath(data.route, retrievePathResult, retrieveStop);
-                      // print("I just set state TESTING:");
-                      // print(path);
 
                       await getBound(
                           data.route, retrieveBound, retrieveBoundBasicInfo);
@@ -239,11 +248,17 @@ class MainBodyState extends State<MainBody> {
                       mainBodyRetrievePathResult: retrievePathResult,
                       mainBodyeRtrieveStop: retrieveStop,
                       passInPageController: pageController,
-                      passInBoundBasicInfo: boundBasicInfo),
+                      passInBoundBasicInfo: boundBasicInfo,
+                      passInResetTimeResult: resetTimeResult,
+                      passInResetAssignToChildGorbalTime:
+                          resetAssignToChildGorbalTime,
+                      passPassIndispatchAction: widget.passIndispatchAction),
                   PathTimer(
                       passInStopList: allStop != null ? allStop : null,
                       passInController: pageController,
-                      passInRetrieveTimeResult: retrieveTimeResult),
+                      passInRetrieveTimeResult: retrieveTimeResult,
+                      passInRetrieveResetAssignToChildGorbalTime:
+                          retrieveResetAssignToChildGorbalTime),
                   ShowTimerResult(passInResultList: timeResult),
                   GoogleMapWidget(passInPathList: path),
                 ],

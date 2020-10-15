@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kmb/apiCall/getData/ChallengeDataJson.dart';
+import 'package:kmb/redux/buttonAvailabilityList/ButtonListAction.dart';
+import 'package:kmb/redux/buttonAvailabilityList/ButtonListState.dart';
 import 'MainBody.dart';
 import 'CusDrawer.dart';
 import 'CusSearch.dart';
@@ -21,6 +24,11 @@ class HomeState extends State<Home> {
   void retrieveResult(resultFromChildWidget) {
     setState(() => {result = resultFromChildWidget});
     print(result.length);
+  }
+
+  dispatchAction(inputList) {
+    StoreProvider.of<ButtonListState>(context)
+        .dispatch(ButtonListAction(inputList));
   }
 
   // passInFunction: (resultFromChildWidget) => {
@@ -48,7 +56,19 @@ class HomeState extends State<Home> {
         ],
       ),
       drawer: CusDrawer(),
-      body: MainBody(passInData: result),
+      body: MainBody(
+        passInData: result,
+        passIndispatchAction: dispatchAction,
+      ),
+      // MainBody(passInData: result)
     );
   }
 }
+
+// IconButton(
+//           icon: Icon(Icons.arrow_downward),
+//           onPressed: () => {
+//                 print("fuhfuufufuf"),
+//                 StoreProvider.of<ButtonListState>(context)
+//                     .dispatch(ButtonListAction([]))
+//               }),

@@ -1,9 +1,10 @@
 import 'states.dart';
 import 'buttonAvailabilityList/ButtonListReducer.dart';
 
+ButtonListState appReducer(ButtonListState state, action) {
+  print("diuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
 
-ButtonListState appReducer(ButtonListState state, action){
-  return ButtonListState(
-    availableList: buttonListReducer(state.availableList, action),
+  return new ButtonListState(
+    availableList: buttonListReducerTesting(state.availableList, action),
   );
 }

@@ -15,12 +15,14 @@ var testingServer = "https://testing-server1128.herokuapp.com";
 var localhost = "http://10.192.32.43:8081";
 // var localhost = "http://192.168.8.182:8081";
 
+var server = localhost;
+
 List<dynamic> temp;
 List<ChallengeData> _result = List<ChallengeData>();
 
 Future<List<ChallengeData>> fetchData() async {
   // final response = await http.get(testingServer + "/getdata?page0&per_page=1");
-  final response = await http.get(testingServer);
+  final response = await http.get(server);
 
   if (response.statusCode == 200) {
     temp = json.decode(response.body)['recieveRespFromkmbDataRepos'];
@@ -52,7 +54,7 @@ Future<List<ChallengeData>> search(String keyword) async {
   };
 
   var response =
-      await http.post(testingServer + "/seaching", headers: headers, body: params);
+      await http.post(server + "/seaching", headers: headers, body: params);
 
   temp = json.decode(response.body)['returnResp'];
   print(temp);
@@ -66,11 +68,13 @@ Future<List<ChallengeData>> search(String keyword) async {
   return _result;
 }
 
-
-
-
-getPath(String keyword, Function passInFunction, Function passInRetrieveStop,
-    String passInTargetBound, String passInTargetServiceType, Function retrieveStopFromDifferentBound) async {
+getPath(
+    String keyword,
+    Function passInFunction,
+    Function passInRetrieveStop,
+    String passInTargetBound,
+    String passInTargetServiceType,
+    Function retrieveStopFromDifferentBound) async {
   print("I am in getPath function");
 
   var temp;
@@ -90,17 +94,12 @@ getPath(String keyword, Function passInFunction, Function passInRetrieveStop,
     temp = json.decode(response.body)['data']['route']['lineGeometry'];
     temp = temp.replaceAll("paths", '"paths"');
     temp = json.decode(temp)['paths'];
-
     stop = json.decode(response.body)['data']['routeStops'];
 
     //the return of "eachStop" resp is List<String>
     var resp = eachStop(stop);
     retrieveStopFromDifferentBound(resp);
     //Redux here !!!!
-    
-
-
-
     passInRetrieveStop(resp);
 
     for (List i in temp) {
@@ -125,9 +124,6 @@ getPath(String keyword, Function passInFunction, Function passInRetrieveStop,
   // return convertResult;
 }
 
-
-
-
 eachStop(input) {
   List<String> allStop = [];
   print(input);
@@ -140,13 +136,11 @@ eachStop(input) {
 
 getBound(inputRoute, Function passInSetBoundResult,
     Function retrieveBoundBasicInfo) async {
-  print("i am inside la !");
-  print(inputRoute);
+  print("i am inside getBound la !");
 
   var resp = await http.get(
       "http://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getroutebound&route=" +
           inputRoute);
-  print("testingggg");
 
   var temp = json.decode(resp.body)['data'];
   passInSetBoundResult(temp);
@@ -157,7 +151,7 @@ getBound(inputRoute, Function passInSetBoundResult,
 
 getBoundBasicInfo(boundList, Function retrieveBoundBasicInfo) async {
   List resultTemp = [];
-  print("GOD DAMN ITTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+  print("we are in getBoundBasicInfo function");
   print(boundList);
   for (var i in boundList) {
     var response = await http.post(

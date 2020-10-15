@@ -14,6 +14,13 @@ class DifferentBound extends StatefulWidget {
 
   final passInPageController;
   final passInBoundBasicInfo;
+  //used for reset the timer result list when user click the get bound putton
+  final passInResetTimeResult;
+
+  //used for rest the value in PathTimer value
+  final passInResetAssignToChildGorbalTime;
+
+  final Function passPassIndispatchAction;
 
   const DifferentBound(
       {this.passInGetBoundResult,
@@ -21,20 +28,26 @@ class DifferentBound extends StatefulWidget {
       this.mainBodyRetrievePathResult,
       this.mainBodyeRtrieveStop,
       this.passInPageController,
-      this.passInBoundBasicInfo});
+      this.passInBoundBasicInfo,
+      this.passInResetTimeResult,
+      this.passInResetAssignToChildGorbalTime,
+      this.passPassIndispatchAction});
 
   @override
   DifferentBoundState createState() => DifferentBoundState();
 }
 
-class DifferentBoundState extends State<DifferentBound> {
+class DifferentBoundState extends State<DifferentBound>
+    with AutomaticKeepAliveClientMixin {
+  bool firstTime = true;
+
   var font20White = TextStyle(
     fontSize: 20,
     color: Colors.white,
   );
 
   var passInRetrieveStopFromDifferentBound;
-  retrieveStopFromDifferentBound(input){
+  retrieveStopFromDifferentBound(input) {
     setState(() {
       passInRetrieveStopFromDifferentBound = input;
     });
@@ -128,9 +141,15 @@ class DifferentBoundState extends State<DifferentBound> {
                                       highlightColor: Colors.red,
                                       color: Colors.blue,
                                       icon: Icon(Icons.arrow_downward),
-                                      onPressed: () => {
-                                        
-                                        getPath(
+                                      onPressed: () async => {
+                                        await widget.passInResetTimeResult(),
+                                        firstTime
+                                            ? print(
+                                                "This isssssssssssssssssssssssssss the first time ar")
+                                            : await widget
+                                                .passInResetAssignToChildGorbalTime(),
+                                        firstTime = false,
+                                        await getPath(
                                           widget.passInDroppedData.route,
                                           widget.mainBodyRetrievePathResult,
                                           widget.mainBodyeRtrieveStop,
@@ -138,8 +157,10 @@ class DifferentBoundState extends State<DifferentBound> {
                                           item['SERVICE_TYPE'].toString(),
                                           retrieveStopFromDifferentBound,
                                         ),
-                                        StoreProvider.of<ButtonListState>(context).dispatch(ButtonListAction(passInRetrieveStopFromDifferentBound)),
-                                        print("testing mother fucker ${store.state.availableList}"),
+                                        widget.passPassIndispatchAction(
+                                            ["Mother Fucker"]),
+                                        print(
+                                            "testing mother fucker ${store.state.availableList}"),
                                         if (widget
                                             .passInPageController.hasClients)
                                           {
@@ -151,11 +172,13 @@ class DifferentBoundState extends State<DifferentBound> {
                                               curve: Curves.easeInOut,
                                             )
                                           }
-                                          
                                       },
                                     ),
                                   ),
                                 ),
+                                store.state.availableList != null
+                                    ? Text(store.state.availableList[0])
+                                    : Text("Havent set state yet")
                               ],
                             ),
                             const Divider(
@@ -176,6 +199,10 @@ class DifferentBoundState extends State<DifferentBound> {
             ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 // http://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getroutebound&route=31M

@@ -10,10 +10,12 @@ class PathTimer extends StatefulWidget {
   final passInStopList;
   final passInController;
   final passInRetrieveTimeResult;
+  final passInRetrieveResetAssignToChildGorbalTime;
   const PathTimer(
       {this.passInStopList,
       this.passInController,
-      this.passInRetrieveTimeResult});
+      this.passInRetrieveTimeResult,
+      this.passInRetrieveResetAssignToChildGorbalTime});
 
   @override
   PathTimerState createState() => PathTimerState();
@@ -25,37 +27,25 @@ class PathTimerState extends State<PathTimer>
   List<List> assignToChildGorbalTime = [];
 
   List buttonAvailabilityList = [];
-  void buttonAvailability() {
-    if (widget.passInStopList.length() > 0) {
-      for (var i in widget.passInStopList) {
-        if (widget.passInStopList.indexOf(i) == 0) {
-          buttonAvailabilityList.add([widget.passInStopList.indexOf(i), true]);
-        } else {
-          buttonAvailabilityList.add([widget.passInStopList.indexOf(i), false]);
-        }
-      }
-    }
-    print("123456789101112131415161718192021222324252627282930");
-    print(buttonAvailabilityList);
+
+  void resetAssignToChildGorbalTime() {
+    setState(() {
+      assignToChildGorbalTime = [];
+    });
   }
 
   void setPassInGorbalTime(inputIndex, inputStationName) {
     var changeTargetIndex = -3;
     setState(() {
-      print("Let's see see how long is the list: " +
-          (assignToChildGorbalTime.length).toString());
       if (assignToChildGorbalTime.length == 0) {
-        print("I am in IF");
         assignToChildGorbalTime.add([
           inputIndex,
           DateFormat('kkmm').format(DateTime.now()),
           inputStationName
         ]);
       } else {
-        print("i am in else");
         for (var i in assignToChildGorbalTime) {
           if (i[0] == inputIndex) {
-            print("````````````````````````````````````");
             changeTargetIndex = assignToChildGorbalTime.indexOf(i);
             break;
           } else {
@@ -63,29 +53,27 @@ class PathTimerState extends State<PathTimer>
           }
         }
         if (changeTargetIndex == -2) {
-          print("CHANGEINDEX IS A :" + changeTargetIndex.toString());
           assignToChildGorbalTime.add([
             inputIndex,
             DateFormat('kkmm').format(DateTime.now()),
             inputStationName
           ]);
         } else if (changeTargetIndex != -3 && changeTargetIndex != -2) {
-          print("CHANGEINDEX IS B :" + changeTargetIndex.toString());
           assignToChildGorbalTime[changeTargetIndex][1] =
               DateFormat('kkmm').format(DateTime.now());
         }
       }
       assignToChildGorbalTime = bubbleSort(assignToChildGorbalTime);
-      print(assignToChildGorbalTime);
     });
     convertResultToString(assignToChildGorbalTime);
-    widget.passInRetrieveTimeResult(assignToChildGorbalTime);
   }
 
   @override
   void initState() {
     super.initState();
     _controller = ScrollController();
+    widget.passInRetrieveResetAssignToChildGorbalTime(
+        resetAssignToChildGorbalTime);
   }
 
   moveDown(inputItemHeight) {
@@ -120,6 +108,8 @@ class PathTimerState extends State<PathTimer>
                     child: RaisedButton(
                       color: Colors.redAccent,
                       onPressed: () {
+                        widget
+                            .passInRetrieveTimeResult(assignToChildGorbalTime);
                         if (widget.passInController.hasClients) {
                           widget.passInController.animateToPage(
                             3,

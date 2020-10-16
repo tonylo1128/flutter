@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 class ButtonListState {
   final List availableList;
 
-  const ButtonListState({
+  ButtonListState({
     this.availableList,
   });
 }

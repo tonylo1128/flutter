@@ -3,22 +3,22 @@ import 'package:redux/redux.dart';
 import 'ButtonListAction.dart';
 
 final buttonListReducerTesting =
-    TypedReducer<List, ButtonListAction>(_buttonListActionReducer);
+    TypedReducer<List, ButtonListAction>(buttonListActionReducer);
 
-List _buttonListActionReducer(List state, ButtonListAction action) {
+List buttonListActionReducer(List state, ButtonListAction action) {
   if (action is ButtonListAction) {
-    print("I am in reducer ar ahahahahhaahahaahahahahahahahahahahahahahaahah");
+    // print("I am in reducer ar ahahahahhaahahaahahahahahahahahahahahahahaahah");
     var temooooo = action.stopsFromApicall;
-    print("testing 1: $state");
-    print("testing 2: $temooooo");
+    // print("testing 1: $state");
+    // print("testing 2: $temooooo");
 
-    state = action.stopsFromApicall;
-    print(state);
-    // return ButtonListState(availableList: action.stopsFromApicall)
-    return action.stopsFromApicall;
+    state = temooooo;
+    // var testing = state.availableList;
+    print("I am in ButtonListReducer, and the value is  : $state");
+    return temooooo;
   }
-
-  return action.stopsFromApicall;
+  return ["I am in reducer and outside of IF !!!!"];
+  // return action.stopsFromApicall;
 }
 
 // ButtonListState buttonListReducerTesting(

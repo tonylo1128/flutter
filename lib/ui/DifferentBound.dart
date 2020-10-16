@@ -157,7 +157,7 @@ class DifferentBoundState extends State<DifferentBound>
                                           item['SERVICE_TYPE'].toString(),
                                           retrieveStopFromDifferentBound,
                                         ),
-                                        widget.passPassIndispatchAction(
+                                        await widget.passPassIndispatchAction(
                                             ["Mother Fucker"]),
                                         print(
                                             "testing mother fucker ${store.state.availableList}"),

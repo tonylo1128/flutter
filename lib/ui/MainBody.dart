@@ -143,7 +143,7 @@ class MainBodyState extends State<MainBody> {
           children: <Widget>[
             Container(
               width: ogSize.width,
-              height: MediaQuery.of(context).size.height - 230,
+              height: MediaQuery.of(context).size.height - 500,
               margin: const EdgeInsets.only(
                 top: 15,
               ),

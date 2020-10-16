@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kmb/apiCall/getData/ChallengeDataJson.dart';
 import 'package:kmb/redux/buttonAvailabilityList/ButtonListAction.dart';
 import 'package:kmb/redux/buttonAvailabilityList/ButtonListState.dart';
+import 'package:kmb/redux/store.dart';
 import 'MainBody.dart';
 import 'CusDrawer.dart';
 import 'CusSearch.dart';
@@ -30,6 +31,8 @@ class HomeState extends State<Home> {
     StoreProvider.of<ButtonListState>(context)
         .dispatch(ButtonListAction(inputList));
   }
+
+  var checkValue = store.state.availableList;
 
   // passInFunction: (resultFromChildWidget) => {
   //                     setState(() => {result = resultFromChildWidget})
@@ -60,15 +63,42 @@ class HomeState extends State<Home> {
         passInData: result,
         passIndispatchAction: dispatchAction,
       ),
-      // MainBody(passInData: result)
     );
   }
 }
 
-// IconButton(
-//           icon: Icon(Icons.arrow_downward),
-//           onPressed: () => {
-//                 print("fuhfuufufuf"),
-//                 StoreProvider.of<ButtonListState>(context)
-//                     .dispatch(ButtonListAction([]))
-//               }),
+// Text(
+//               checkValue[0],
+//               // style: TextStyle(color: Colors.white),
+//             ),
+//             IconButton(
+//                 icon: Icon(Icons.arrow_downward,color: Colors.white),
+//                 onPressed: () => {
+//                       StoreProvider.of<ButtonListState>(context)
+//                           .dispatch(ButtonListAction(["DAMN IT2"]))
+//                     }),
+// MainBody(
+//         passInData: result,
+//         passIndispatchAction: dispatchAction,
+//       ),
+
+// Column(
+//           children: <Widget>[
+//             Text(
+//               checkValue[0],
+//               style: TextStyle(color: Colors.white),
+//             ),
+//             IconButton(
+//                 icon: Icon(Icons.arrow_downward, color: Colors.white),
+//                 onPressed: () => {
+//                       StoreProvider.of<ButtonListState>(context)
+//                           .dispatch(ButtonListAction(["DAMN IT233"])),
+//                       print(
+//                           "testing mother fucker ${store.state.availableList}"),
+//                     }),
+//             MainBody(
+//               passInData: result,
+//               passIndispatchAction: dispatchAction,
+//             ),
+//           ],
+//         )

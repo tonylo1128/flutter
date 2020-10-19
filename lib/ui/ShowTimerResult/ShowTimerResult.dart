@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:clipboard/clipboard.dart';
+import 'package:kmb/apiCall/getData/getData.dart';
 
 class ShowTimerResult extends StatefulWidget {
   final passInResultList;
@@ -11,6 +13,18 @@ class ShowTimerResult extends StatefulWidget {
 }
 
 class ShowTimerResultState extends State<ShowTimerResult> {
+
+  String result="";
+
+  convertText(){
+    for(var i in widget.passInResultList){
+      result = result+i[1]+" "+i[2]+"\n";
+    }
+    print(result);
+  }
+
+  
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -40,7 +54,12 @@ class ShowTimerResultState extends State<ShowTimerResult> {
         Container(
           child: RaisedButton(
             color: Colors.redAccent,
-            onPressed: () {},
+            onPressed: () =>{
+              print(widget.passInResultList),
+                convertText(),
+               FlutterClipboard.copy(result).then(( value ) => print('copied')),
+               
+            },
             child: Text(
               "Check your result",
               style: TextStyle(color: Colors.white),

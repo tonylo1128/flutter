@@ -74,7 +74,7 @@ getPath(
     Function passInRetrieveStop,
     String passInTargetBound,
     String passInTargetServiceType,
-    Function retrieveStopFromDifferentBound) async {
+    Function passInRetrieveStopFromDifferentBound) async {
   print("I am in getPath function");
 
   var temp;
@@ -98,7 +98,8 @@ getPath(
 
     //the return of "eachStop" resp is List<String>
     var resp = eachStop(stop);
-    retrieveStopFromDifferentBound(resp);
+
+    passInRetrieveStopFromDifferentBound(resp);
     //Redux here !!!!
     passInRetrieveStop(resp);
 

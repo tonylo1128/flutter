@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:kmb/apiCall/getData/getData.dart';
 import 'ListItem.dart';
 // import 'package:kmb/ListItem.dart';
 import 'package:intl/intl.dart';
-
 import 'Helper.dart';
 import 'ShowTimerResult/ConvertResultToString.dart';
+import '../redux/reduxFileimport.dart';
 
 class PathTimer extends StatefulWidget {
   final passInStopList;
   final passInController;
   final passInRetrieveTimeResult;
   final passInRetrieveResetAssignToChildGorbalTime;
+  final passInPassInpassIndispatchUpdateAction;
   const PathTimer(
       {this.passInStopList,
       this.passInController,
       this.passInRetrieveTimeResult,
-      this.passInRetrieveResetAssignToChildGorbalTime});
+      this.passInRetrieveResetAssignToChildGorbalTime,
+      this.passInPassInpassIndispatchUpdateAction});
 
   @override
   PathTimerState createState() => PathTimerState();
@@ -77,6 +80,7 @@ class PathTimerState extends State<PathTimer>
   }
 
   moveDown(inputItemHeight) {
+    print("MOVING FUNCTIOn TESTING");
     if (_controller.offset >= _controller.position.maxScrollExtent &&
         !_controller.position.outOfRange) {
     } else {
@@ -91,18 +95,28 @@ class PathTimerState extends State<PathTimer>
 
     return Container(
         child: widget.passInStopList != null
-            ? ListView(
-                controller: _controller,
-                itemExtent: itemHeight,
-                children: [
-                  ...(widget.passInStopList as List<String>)
-                      .map((passInData) => ListItem(
-                          passInPathList: passInData,
-                          passInIndex:
-                              widget.passInStopList.indexOf(passInData),
-                          passInCheckAndSetTime: setPassInGorbalTime,
-                          passInMoveDown: moveDown))
-                      .toList(),
+            ? Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      child: ListView.builder(
+                        controller: _controller,
+                        itemExtent: 60,
+                        itemCount: widget.passInStopList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final item = widget.passInStopList[index];
+                          return ListItem(
+                              passInPathList: item,
+                              passInIndex: index,
+                              passInCheckAndSetTime: setPassInGorbalTime,
+                              passInMoveDown: moveDown,
+                              passInpassInPassInpassIndispatchUpdateAction:
+                                  widget
+                                      .passInPassInpassIndispatchUpdateAction);
+                        },
+                      ),
+                    ),
+                  ),
                   Container(
                     color: Colors.redAccent,
                     child: RaisedButton(
@@ -123,7 +137,7 @@ class PathTimerState extends State<PathTimer>
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                  ),
+                  )
                 ],
               )
             : Text("Error null here"));

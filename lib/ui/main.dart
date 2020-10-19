@@ -11,10 +11,11 @@ import '../ui/Home.dart';
 import 'Home.dart';
 
 void main() {
-  final store = Store<ButtonListState>(
-    appReducer,
-    initialState: ButtonListState(availableList: ["initialState:testing~"]),
-  );
+  // final store = Store<ButtonListState>(
+  //   appReducer,
+  //   initialState: ButtonListState(
+  //       availableList: ["initialState:CHANGE THIS MOTHER FUCKER"]),
+  // );
 
   runApp(StoreProvider(store: store, child: MyApp()));
   print('Initial state: ${store.state.availableList}');
@@ -25,32 +26,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return StoreProvider(
+      store: store,
+      child: MaterialApp(
+        home: Scaffold(
           backgroundColor: Colors.red,
-          body: StoreConnector<ButtonListState, List>(
-            converter: (Store<ButtonListState> store) =>
-                store.state.availableList,
-            builder: (BuildContext cintext, List availableList) {
-              return Column(
-                children: <Widget>[
-                  Text(
-                    checkValue[0],
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.arrow_downward, color: Colors.white),
-                    onPressed: () => {
-                      StoreProvider.of<ButtonListState>(context)
-                          .dispatch(ButtonListAction(["DAMN IT233"])),
-                      print(
-                          "testing mother fucker ${store.state.availableList}"),
-                    },
-                  ),
-                ],
-              );
-            },
-          )),
+          body: Home(),
+        ),
+      ),
     );
   }
 }

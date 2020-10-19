@@ -4,5 +4,6 @@ import 'states.dart';
 
 final store = Store<ButtonListState>(
   appReducer,
-  initialState: ButtonListState(availableList: ["initialState:testing~"]),
+  initialState: ButtonListState(
+      availableList: [":Damn it, i am still in initialState ! ! ! !"]),
 );

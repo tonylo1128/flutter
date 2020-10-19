@@ -17,7 +17,11 @@ import '../apiCall/getData/ChallengeDataJson.dart';
 class MainBody extends StatefulWidget {
   final List<ChallengeData> passInData;
   final Function passIndispatchAction;
-  const MainBody({this.passInData, this.passIndispatchAction});
+  final Function passIndispatchUpdateAction;
+  const MainBody(
+      {this.passInData,
+      this.passIndispatchAction,
+      this.passIndispatchUpdateAction});
 
   @override
   MainBodyState createState() => MainBodyState();
@@ -143,7 +147,7 @@ class MainBodyState extends State<MainBody> {
           children: <Widget>[
             Container(
               width: ogSize.width,
-              height: MediaQuery.of(context).size.height - 500,
+              height: MediaQuery.of(context).size.height - 250,
               margin: const EdgeInsets.only(
                 top: 15,
               ),
@@ -258,7 +262,9 @@ class MainBodyState extends State<MainBody> {
                       passInController: pageController,
                       passInRetrieveTimeResult: retrieveTimeResult,
                       passInRetrieveResetAssignToChildGorbalTime:
-                          retrieveResetAssignToChildGorbalTime),
+                          retrieveResetAssignToChildGorbalTime,
+                      passInPassInpassIndispatchUpdateAction:
+                          widget.passIndispatchUpdateAction),
                   ShowTimerResult(passInResultList: timeResult),
                   GoogleMapWidget(passInPathList: path),
                 ],

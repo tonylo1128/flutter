@@ -32,11 +32,21 @@ class ShowTimerResultState extends State<ShowTimerResult> {
                           loopingItem[1],
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ))
-            .toList()
+            .toList(),
+        Container(
+          child: RaisedButton(
+            color: Colors.redAccent,
+            onPressed: () {},
+            child: Text(
+              "Check your result",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
       ],
     );
   }

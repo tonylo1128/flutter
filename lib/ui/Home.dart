@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kmb/apiCall/getData/ChallengeDataJson.dart';
 import 'package:kmb/redux/buttonAvailabilityList/ButtonListAction.dart';
 import 'package:kmb/redux/buttonAvailabilityList/ButtonListState.dart';
+import 'package:kmb/redux/buttonAvailabilityList/UpdateButtonListAction.dart';
 import 'package:kmb/redux/store.dart';
 import 'MainBody.dart';
 import 'CusDrawer.dart';
@@ -30,6 +31,13 @@ class HomeState extends State<Home> {
   dispatchAction(inputList) {
     StoreProvider.of<ButtonListState>(context)
         .dispatch(ButtonListAction(inputList));
+    super.dispose();
+  }
+
+  dispatchUpdateAction(inputIndex) {
+    StoreProvider.of<UpdateButtonListAction>(context)
+        .dispatch(UpdateButtonListAction(inputIndex));
+    super.dispose();
   }
 
   var checkValue = store.state.availableList;
@@ -62,43 +70,8 @@ class HomeState extends State<Home> {
       body: MainBody(
         passInData: result,
         passIndispatchAction: dispatchAction,
+        passIndispatchUpdateAction: dispatchUpdateAction,
       ),
     );
   }
 }
-
-// Text(
-//               checkValue[0],
-//               // style: TextStyle(color: Colors.white),
-//             ),
-//             IconButton(
-//                 icon: Icon(Icons.arrow_downward,color: Colors.white),
-//                 onPressed: () => {
-//                       StoreProvider.of<ButtonListState>(context)
-//                           .dispatch(ButtonListAction(["DAMN IT2"]))
-//                     }),
-// MainBody(
-//         passInData: result,
-//         passIndispatchAction: dispatchAction,
-//       ),
-
-// Column(
-//           children: <Widget>[
-//             Text(
-//               checkValue[0],
-//               style: TextStyle(color: Colors.white),
-//             ),
-//             IconButton(
-//                 icon: Icon(Icons.arrow_downward, color: Colors.white),
-//                 onPressed: () => {
-//                       StoreProvider.of<ButtonListState>(context)
-//                           .dispatch(ButtonListAction(["DAMN IT233"])),
-//                       print(
-//                           "testing mother fucker ${store.state.availableList}"),
-//                     }),
-//             MainBody(
-//               passInData: result,
-//               passIndispatchAction: dispatchAction,
-//             ),
-//           ],
-//         )

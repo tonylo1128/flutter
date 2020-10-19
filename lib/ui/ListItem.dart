@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kmb/redux/buttonAvailabilityList/UpdateButtonListAction.dart';
+import 'package:kmb/redux/store.dart';
 
 class ListItem extends StatefulWidget {
   final passInPathList;
   final passInIndex;
   final passInCheckAndSetTime;
   final passInMoveDown;
+  final Function passInpassInPassInpassIndispatchUpdateAction;
   const ListItem(
-      {
-      this.passInPathList,
+      {this.passInPathList,
       this.passInIndex,
       this.passInCheckAndSetTime,
-      this.passInMoveDown});
+      this.passInMoveDown,
+      this.passInpassInPassInpassIndispatchUpdateAction});
 
   @override
   ListItemState createState() => ListItemState();
@@ -19,8 +23,6 @@ class ListItem extends StatefulWidget {
 class ListItemState extends State<ListItem> {
   List time = [];
   var timeTemp;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +51,20 @@ class ListItemState extends State<ListItem> {
                   child: IconButton(
                       color: Colors.blue,
                       icon: Icon(Icons.timer),
-                      onPressed: 
-                          () => {
+                      onPressed: store.state.availableList[widget.passInIndex]
+                                  [1] ==
+                              true
+                          ? () async => {
                                 widget.passInCheckAndSetTime(
                                     widget.passInIndex, widget.passInPathList),
                                 widget.passInMoveDown(60),
-                              },
-                  ),
+                                // await widget
+                                //     .passInpassInPassInpassIndispatchUpdateAction(
+                                //         widget.passInIndex),
+                                store.dispatch(
+                                    UpdateButtonListAction(widget.passInIndex))
+                              }
+                          : null),
                 ),
               ],
             ),
@@ -65,16 +74,3 @@ class ListItemState extends State<ListItem> {
     );
   }
 }
-
-// for(var i in time){
-//         if(time[time.indexOf(i)][0] != inputIndex){
-//           print("not the same index, added now !");
-//           time.add([inputIndex, new DateTime.now()]);
-//         }
-//         else{
-//           print("Same index !!!");
-//           print(i[0]);
-//           print(inputIndex);
-//           i[1] = new DateTime.now();
-//         }
-//       }

@@ -16,7 +16,7 @@ class Home extends StatefulWidget {
   HomeState createState() => HomeState();
 }
 
-class HomeState extends State<Home> {
+class HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   // NetworkCheck temp = NetworkCheck();
   // temp.check();
 
@@ -40,11 +40,13 @@ class HomeState extends State<Home> {
     super.dispose();
   }
 
-  var checkValue = store.state.availableList;
-
-  // passInFunction: (resultFromChildWidget) => {
-  //                     setState(() => {result = resultFromChildWidget})
-  //                   }
+  changeSearchingState() {
+    if (mounted) {
+      setState(() {
+        searching = !searching;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +60,8 @@ class HomeState extends State<Home> {
         actions: <Widget>[
           new IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {
-              setState(() {
-                searching = !searching;
-              });
+            onPressed: () => {
+              changeSearchingState(),
             },
           )
         ],
@@ -74,4 +74,8 @@ class HomeState extends State<Home> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

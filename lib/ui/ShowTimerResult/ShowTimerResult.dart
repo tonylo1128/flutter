@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
-import 'package:kmb/apiCall/getData/getData.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ShowTimerResult extends StatefulWidget {
   final passInResultList;
@@ -13,17 +13,14 @@ class ShowTimerResult extends StatefulWidget {
 }
 
 class ShowTimerResultState extends State<ShowTimerResult> {
+  String result = "";
 
-  String result="";
-
-  convertText(){
-    for(var i in widget.passInResultList){
-      result = result+i[1]+" "+i[2]+"\n";
+  convertText() {
+    for (var i in widget.passInResultList) {
+      result = result + i[1] + " " + i[2] + "\n";
     }
     print(result);
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +51,18 @@ class ShowTimerResultState extends State<ShowTimerResult> {
         Container(
           child: RaisedButton(
             color: Colors.redAccent,
-            onPressed: () =>{
+            onPressed: () => {
               print(widget.passInResultList),
-                convertText(),
-               FlutterClipboard.copy(result).then(( value ) => print('copied')),
-               
+              convertText(),
+              FlutterClipboard.copy(result).then((value) => print('copied')),
+              Fluttertoast.showToast(
+                  msg: "Copied !",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.redAccent,
+                  textColor: Colors.white,
+                  fontSize: 16.0)
             },
             child: Text(
               "Check your result",

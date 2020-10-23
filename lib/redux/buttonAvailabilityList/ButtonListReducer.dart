@@ -1,37 +1,31 @@
 import 'package:redux/redux.dart';
-import 'ButtonListAction.dart';
+import './ButtonListAction.dart';
 import 'UpdateButtonListAction.dart';
 
 final buttonListReducerTesting =
     TypedReducer<List, dynamic>(buttonListActionReducer);
 
-List buttonListActionReducer(List state, dynamic action) {
-  if (action is ButtonListAction) {
-    print("I am in reducer ar ahahahahhaahahaahahahahahahahahahahahahahaahah");
-    print(
-        "I am in ButtonListReducer, and the current state is (before i changed it)  : $state");
+List buttonListActionReducer(List state, action) {
+  // if (action is ButtonListAction) {
+  //   print("I am in reducer ar ahahahahhaahahaahahahahahahahahahahahahahaahah");
+  //   print(
+  //       "I am in ButtonListReducer, and the current state is (before i changed it)  : $state");
 
-    var actionTemp = action.stopsFromApicall;
-    var newAvailableList = [];
-    print(actionTemp);
-    // for (var stopName in actionTemp) {
-    //   if (actionTemp.indexOf(stopName) == 0) {
-    //     newAvailableList.add([actionTemp.indexOf(stopName), true]);
-    //   } else {
-    //     newAvailableList.add([actionTemp.indexOf(stopName), false]);
-    //   }
-    // }
-    for (int i = 0; i < actionTemp.length; i++) {
-      if (i == 0) {
-        newAvailableList.add([i, true]);
-      } else {
-        newAvailableList.add([i, false]);
-      }
-    }
-    print(newAvailableList);
+  //   var actionTemp = action.stopsFromApicall;
+  //   var newAvailableList = [];
+  //   print(actionTemp);
 
-    return newAvailableList;
-  }
+  //   for (int i = 0; i < actionTemp.length; i++) {
+  //     if (i == 0) {
+  //       newAvailableList.add([i, true]);
+  //     } else {
+  //       newAvailableList.add([i, false]);
+  //     }
+  //   }
+  //   print(newAvailableList);
+
+  //   return newAvailableList;
+  // }
   if (action is UpdateButtonListAction) {
     print("I am in reducer but an other aciotn arrrrrrrrrrrr");
     var targetIndex = action.index;
@@ -47,7 +41,8 @@ List buttonListActionReducer(List state, dynamic action) {
       }
     }
   }
-
+  print(action);
+  print(state);
   return ["I am in reducer and outside of IF !!!!"];
   // return action.stopsFromApicall;
 }

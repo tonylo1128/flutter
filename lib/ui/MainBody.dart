@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kmb/redux/store.dart';
 // import 'package:kmb/DifferentBound.dart';
 // import 'package:kmb/PathTimer.dart';
 
@@ -258,6 +259,10 @@ class MainBodyState extends State<MainBody> {
                           resetAssignToChildGorbalTime,
                       passPassIndispatchAction: widget.passIndispatchAction),
                   PathTimer(
+                      // passInStopList: store.state.availableList !=
+                      //         [":Damn it, i am still in initialState ! ! ! !"]
+                      //     ? store.state.availableList
+                      //     : null,
                       passInStopList: allStop != null ? allStop : null,
                       passInController: pageController,
                       passInRetrieveTimeResult: retrieveTimeResult,

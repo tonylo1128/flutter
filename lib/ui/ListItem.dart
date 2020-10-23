@@ -21,6 +21,13 @@ class ListItem extends StatefulWidget {
 }
 
 class ListItemState extends State<ListItem> {
+  @override
+  void initState() {
+    print("i am in the init function of ListItem");
+    print(widget.passInPathList);
+    // print();
+  }
+
   List time = [];
   var timeTemp;
 
@@ -57,10 +64,12 @@ class ListItemState extends State<ListItem> {
                           ? () async => {
                                 widget.passInCheckAndSetTime(
                                     widget.passInIndex, widget.passInPathList),
+                                print("First gate"),
                                 widget.passInMoveDown(60),
                                 // await widget
                                 //     .passInpassInPassInpassIndispatchUpdateAction(
                                 //         widget.passInIndex),
+                                print("Second gate"),
                                 store.dispatch(
                                     UpdateButtonListAction(widget.passInIndex))
                               }

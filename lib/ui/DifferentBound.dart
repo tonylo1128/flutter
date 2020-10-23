@@ -54,153 +54,160 @@ class DifferentBoundState extends State<DifferentBound>
     });
   }
 
+  dispatchButtonListAction() {
+    final store = StoreProvider.of<ButtonListState>(context);
+    store.dispatch(ButtonListAction(retrieveStopFromDifferentBound));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: widget.passInGetBoundResult != null
-          ? StoreConnector<ButtonListState, List>(
-              converter: (Store<ButtonListState> store) =>
-                  store.state.availableList,
-              builder: (BuildContext cintext, List availableList) {
-                return Column(
-                  children: [
-                    ...(widget.passInGetBoundResult as List)
-                        .map((item) => Column(
-                              children: [
-                                // the starting point and destination;
-                                widget.passInBoundBasicInfo != null
-                                    ? Row(
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                left: 10, right: 10),
-                                            child: Text(
-                                              widget.passInBoundBasicInfo[widget
-                                                  .passInGetBoundResult
-                                                  .indexOf(item)][0],
-                                              style: font20White,
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                left: 10, right: 10),
-                                            child: Text(
-                                              widget.passInBoundBasicInfo[widget
-                                                  .passInGetBoundResult
-                                                  .indexOf(item)][1],
-                                              style: font20White,
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    : Text("Nth in here la"),
-
-                                // the "Bound:$num Service Type:$num" widget
-
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 9,
-                                      child: Container(
-                                          child: Row(
-                                        children: [
-                                          Container(
-                                            color: Colors.red,
-                                            margin: EdgeInsets.only(
-                                                left: 10, right: 5),
-                                            child: Text(
-                                              "Bound:",
-                                              style: font20White,
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                left: 0, right: 5),
-                                            child: Text(
-                                              item['BOUND'].toString(),
-                                              style: font20White,
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                left: 0, right: 5),
-                                            child: Text(
-                                              "Service Type:",
-                                              style: font20White,
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(),
-                                            child: Text(
-                                              item['SERVICE_TYPE'].toString(),
-                                              style: font20White,
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        child: IconButton(
-                                          highlightColor: Colors.red,
-                                          color: Colors.blue,
-                                          icon: Icon(Icons.arrow_downward),
-                                          onPressed: () async => {
-                                            await widget
-                                                .passInResetTimeResult(),
-                                            firstTime
-                                                ? print(
-                                                    "This isssssssssssssssssssssssssss the first time ar")
-                                                : await widget
-                                                    .passInResetAssignToChildGorbalTime(),
-                                            firstTime = false,
-                                            await getPath(
-                                              widget.passInDroppedData.route,
-                                              widget.mainBodyRetrievePathResult,
-                                              widget.mainBodyeRtrieveStop,
-                                              item['BOUND'].toString(),
-                                              item['SERVICE_TYPE'].toString(),
-                                              passInRetrieveStopFromDifferentBound,
-                                            ),
-                                            await widget.passPassIndispatchAction(
-                                                retrieveStopFromDifferentBound),
-
-                                            // StoreProvider.of<ButtonListState>(
-                                            //         context)
-                                            //     .dispatch(ButtonListAction(
-                                            //         retrieveStopFromDifferentBound)),
-                                            print(
-                                                "testing and see the store@@@@@${store.state.availableList}"),
-                                            if (widget.passInPageController
-                                                .hasClients)
-                                              {
-                                                widget.passInPageController
-                                                    .animateToPage(
-                                                  2,
-                                                  duration: const Duration(
-                                                      milliseconds: 400),
-                                                  curve: Curves.easeInOut,
-                                                )
-                                              }
-                                          },
+          ? Column(
+              children: [
+                ...(widget.passInGetBoundResult as List)
+                    .map((item) => Column(
+                          children: [
+                            // the starting point and destination;
+                            widget.passInBoundBasicInfo != null
+                                ? Row(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: Text(
+                                          widget.passInBoundBasicInfo[widget
+                                              .passInGetBoundResult
+                                              .indexOf(item)][0],
+                                          style: font20White,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: Text(
+                                          widget.passInBoundBasicInfo[widget
+                                              .passInGetBoundResult
+                                              .indexOf(item)][1],
+                                          style: font20White,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : Text("Nth in here la"),
+
+                            // the "Bound:$num Service Type:$num" widget
+
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 9,
+                                  child: Container(
+                                      child: Row(
+                                    children: [
+                                      Container(
+                                        color: Colors.red,
+                                        margin:
+                                            EdgeInsets.only(left: 10, right: 5),
+                                        child: Text(
+                                          "Bound:",
+                                          style: font20White,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin:
+                                            EdgeInsets.only(left: 0, right: 5),
+                                        child: Text(
+                                          item['BOUND'].toString(),
+                                          style: font20White,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin:
+                                            EdgeInsets.only(left: 0, right: 5),
+                                        child: Text(
+                                          "Service Type:",
+                                          style: font20White,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(),
+                                        child: Text(
+                                          item['SERVICE_TYPE'].toString(),
+                                          style: font20White,
+                                        ),
+                                      ),
+                                    ],
+                                  )),
                                 ),
-                                const Divider(
-                                  color: Colors.white,
-                                  thickness: 1,
-                                  indent: 5,
-                                  endIndent: 5,
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    child: IconButton(
+                                      highlightColor: Colors.red,
+                                      color: Colors.blue,
+                                      icon: Icon(Icons.arrow_downward),
+                                      onPressed: () async => {
+                                        await widget.passInResetTimeResult(),
+                                        firstTime
+                                            ? print(
+                                                "This isssssssssssssssssssssssssss the first time ar")
+                                            : await widget
+                                                .passInResetAssignToChildGorbalTime(),
+                                        firstTime = false,
+                                        await getPath(
+                                          widget.passInDroppedData.route,
+                                          widget.mainBodyRetrievePathResult,
+                                          widget.mainBodyeRtrieveStop,
+                                          item['BOUND'].toString(),
+                                          item['SERVICE_TYPE'].toString(),
+                                          passInRetrieveStopFromDifferentBound,
+                                        ),
+
+                                        dispatchButtonListAction(),
+
+                                        // await widget.passPassIndispatchAction(
+                                        //     retrieveStopFromDifferentBound),
+
+                                        // await store.dispatch(
+                                        //   new ButtonListAction(
+                                        //       retrieveStopFromDifferentBound),
+                                        // ),
+
+                                        // StoreProvider.of<ButtonListState>(
+                                        //         context)
+                                        //     .dispatch(ButtonListAction(
+                                        //         retrieveStopFromDifferentBound)),
+                                        print(
+                                            "testing and see the store@@@@@${store.state.availableList}"),
+                                        if (widget
+                                            .passInPageController.hasClients)
+                                          {
+                                            widget.passInPageController
+                                                .animateToPage(
+                                              2,
+                                              duration: const Duration(
+                                                  milliseconds: 400),
+                                              curve: Curves.easeInOut,
+                                            )
+                                          }
+                                      },
+                                    ),
+                                  ),
                                 ),
                               ],
-                            ))
-                        .toList(),
-                  ],
-                );
-              })
+                            ),
+                            const Divider(
+                              color: Colors.white,
+                              thickness: 1,
+                              indent: 5,
+                              endIndent: 5,
+                            ),
+                          ],
+                        ))
+                    .toList(),
+              ],
+            )
           : Align(
               alignment: Alignment(0, 0),
               child: Text("Please drop a route on first page first ~",

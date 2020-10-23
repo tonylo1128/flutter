@@ -15,7 +15,7 @@ var testingServer = "https://testing-server1128.herokuapp.com";
 var localhost = "http://10.192.32.43:8081";
 // var localhost = "http://192.168.8.182:8081";
 
-var server = localhost;
+var server = testingServer;
 
 List<dynamic> temp;
 List<ChallengeData> _result = List<ChallengeData>();

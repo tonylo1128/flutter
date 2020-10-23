@@ -94,53 +94,61 @@ class PathTimerState extends State<PathTimer>
     double itemHeight = 60;
 
     return Container(
-        child: widget.passInStopList != null
-            ? Column(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      child: ListView.builder(
-                        controller: _controller,
-                        itemExtent: 60,
-                        itemCount: widget.passInStopList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final item = widget.passInStopList[index];
-                          return ListItem(
-                              passInPathList: item,
-                              passInIndex: index,
-                              passInCheckAndSetTime: setPassInGorbalTime,
-                              passInMoveDown: moveDown,
-                              passInpassInPassInpassIndispatchUpdateAction:
-                                  widget
-                                      .passInPassInpassIndispatchUpdateAction);
-                        },
-                      ),
+      child: widget.passInStopList != null
+          ? Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    child: ListView.builder(
+                      controller: _controller,
+                      itemExtent: 60,
+                      itemCount: widget.passInStopList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = widget.passInStopList[index];
+                        return ListItem(
+                            passInPathList: item,
+                            passInIndex: index,
+                            passInCheckAndSetTime: setPassInGorbalTime,
+                            passInMoveDown: moveDown,
+                            passInpassInPassInpassIndispatchUpdateAction:
+                                widget.passInPassInpassIndispatchUpdateAction);
+                      },
                     ),
                   ),
-                  Container(
+                ),
+                Container(
+                  color: Colors.redAccent,
+                  child: RaisedButton(
                     color: Colors.redAccent,
-                    child: RaisedButton(
-                      color: Colors.redAccent,
-                      onPressed: () {
-                        widget
-                            .passInRetrieveTimeResult(assignToChildGorbalTime);
-                        if (widget.passInController.hasClients) {
-                          widget.passInController.animateToPage(
-                            3,
-                            duration: const Duration(milliseconds: 400),
-                            curve: Curves.easeInOut,
-                          );
-                        }
-                      },
-                      child: Text(
-                        "Check your result",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    onPressed: () {
+                      widget.passInRetrieveTimeResult(assignToChildGorbalTime);
+                      if (widget.passInController.hasClients) {
+                        widget.passInController.animateToPage(
+                          3,
+                          duration: const Duration(milliseconds: 400),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    },
+                    child: Text(
+                      "Check your result",
+                      style: TextStyle(color: Colors.white),
                     ),
-                  )
-                ],
-              )
-            : Text("Error null here"));
+                  ),
+                )
+              ],
+            )
+          : Container(
+              width: MediaQuery.of(context).size.width * 0.5,
+              child: Align(
+                alignment: Alignment(0, 0),
+                child: Text(
+                  "Nth in here yet ar, go back to second and select a bound page la",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+            ),
+    );
   }
 
   @override

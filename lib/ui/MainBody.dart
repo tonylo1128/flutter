@@ -213,13 +213,29 @@ class MainBodyState extends State<MainBody> {
                                 )
                               ],
                             )
-                          : Align(
-                              alignment: Alignment(0, 0),
-                              child: Text(
-                                'Empty dropzone',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'Empty dropzone',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                Text(
+                                  'Drop Sth in here !',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  child: Image(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    image: AssetImage('lib/img/drop.gif'),
+                                  ),
+                                ),
+                              ],
                             );
                     },
                     onWillAccept: (data) {

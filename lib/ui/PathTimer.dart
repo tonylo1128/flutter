@@ -138,15 +138,27 @@ class PathTimerState extends State<PathTimer>
                 )
               ],
             )
-          : Container(
-              width: MediaQuery.of(context).size.width * 0.5,
-              child: Align(
-                alignment: Alignment(0, 0),
-                child: Text(
-                  "Nth in here yet ar, go back to second and select a bound page la",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+          : Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(top: 50),
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: Text(
+                    // MediaQuery.of(context).size.width.toString(),
+                    "Nothing in here yet ar! Go back to second and select a bound page la",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
                 ),
-              ),
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Image(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    image: AssetImage('lib/img/gdi.gif'),
+                  ),
+                ),
+              ],
             ),
     );
   }

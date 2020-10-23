@@ -208,10 +208,27 @@ class DifferentBoundState extends State<DifferentBound>
                     .toList(),
               ],
             )
-          : Align(
-              alignment: Alignment(0, 0),
-              child: Text("Please drop a route on first page first ~",
-                  style: font20White),
+          : Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(top: 50),
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: Text(
+                    // MediaQuery.of(context).size.width.toString(),
+                    "Please drop a route on first page first ~",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Image(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    image: AssetImage('lib/img/iu.gif'),
+                  ),
+                ),
+              ],
             ),
     );
   }

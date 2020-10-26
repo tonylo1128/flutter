@@ -131,7 +131,7 @@ class PathTimerState extends State<PathTimer>
                       }
                     },
                     child: Text(
-                      "Check your result",
+                      "Check time",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

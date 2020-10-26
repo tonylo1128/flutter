@@ -23,6 +23,8 @@ class DifferentBound extends StatefulWidget {
 
   final Function passPassIndispatchAction;
 
+  final Function passPassInRetrieveBoundInfo;
+
   const DifferentBound(
       {this.passInGetBoundResult,
       this.passInDroppedData,
@@ -32,7 +34,8 @@ class DifferentBound extends StatefulWidget {
       this.passInBoundBasicInfo,
       this.passInResetTimeResult,
       this.passInResetAssignToChildGorbalTime,
-      this.passPassIndispatchAction});
+      this.passPassIndispatchAction,
+      this.passPassInRetrieveBoundInfo});
 
   @override
   DifferentBoundState createState() => DifferentBoundState();
@@ -178,8 +181,10 @@ class DifferentBoundState extends State<DifferentBound>
                                         //         context)
                                         //     .dispatch(ButtonListAction(
                                         //         retrieveStopFromDifferentBound)),
-                                        print(
-                                            "testing and see the store@@@@@${store.state.availableList}"),
+                                        widget.passPassInRetrieveBoundInfo([
+                                          item['BOUND'].toString(),
+                                          item['SERVICE_TYPE'].toString(),
+                                        ]),
                                         if (widget
                                             .passInPageController.hasClients)
                                           {

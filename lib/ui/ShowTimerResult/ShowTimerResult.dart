@@ -5,8 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class ShowTimerResult extends StatefulWidget {
   final passInResultList;
+  final passInPassInRetrieveTimeResult;
 
-  const ShowTimerResult({this.passInResultList});
+  const ShowTimerResult(
+      {this.passInResultList, this.passInPassInRetrieveTimeResult});
 
   @override
   ShowTimerResultState createState() => ShowTimerResultState();
@@ -57,6 +59,7 @@ class ShowTimerResultState extends State<ShowTimerResult> {
                   onPressed: () => {
                     print(widget.passInResultList),
                     convertText(),
+                    widget.passInPassInRetrieveTimeResult(result),
                     FlutterClipboard.copy(result)
                         .then((value) => print('copied')),
                     Fluttertoast.showToast(

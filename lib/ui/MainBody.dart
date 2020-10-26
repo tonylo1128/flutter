@@ -19,10 +19,16 @@ class MainBody extends StatefulWidget {
   final List<ChallengeData> passInData;
   final Function passIndispatchAction;
   final Function passIndispatchUpdateAction;
+  final Function passInRetrieveRouteInfo;
+  final Function passInRetrieveBoundInfo;
+  final Function passInRetrieveTimeResult;
   const MainBody(
       {this.passInData,
       this.passIndispatchAction,
-      this.passIndispatchUpdateAction});
+      this.passIndispatchUpdateAction,
+      this.passInRetrieveRouteInfo,
+      this.passInRetrieveBoundInfo,
+      this.passInRetrieveTimeResult});
 
   @override
   MainBodyState createState() => MainBodyState();
@@ -148,7 +154,7 @@ class MainBodyState extends State<MainBody> {
           children: <Widget>[
             Container(
               width: ogSize.width,
-              height: MediaQuery.of(context).size.height * 0.7,
+              height: MediaQuery.of(context).size.height * 0.65,
               margin: const EdgeInsets.only(
                 top: 15,
               ),
@@ -250,12 +256,18 @@ class MainBodyState extends State<MainBody> {
 
                       await getBoundBasicInfo(
                           boundResultList, retrieveBoundBasicInfo);
+
+                      print("aftar on accept");
+                      
                       // boundResultList
                       if (data.id != 0) {
+                        
                         setState(() {
                           successfulDrop = true;
                           dragSuccessTemp = data;
                         });
+                        print(dragSuccessTemp);
+                        widget.passInRetrieveRouteInfo(dragSuccessTemp.route);
                         return true;
                       } else {
                         return Text('Almost there !!!');
@@ -273,7 +285,9 @@ class MainBodyState extends State<MainBody> {
                       passInResetTimeResult: resetTimeResult,
                       passInResetAssignToChildGorbalTime:
                           resetAssignToChildGorbalTime,
-                      passPassIndispatchAction: widget.passIndispatchAction),
+                      passPassIndispatchAction: widget.passIndispatchAction,
+                      passPassInRetrieveBoundInfo:
+                          widget.passInRetrieveBoundInfo),
                   PathTimer(
                       // passInStopList: store.state.availableList !=
                       //         [":Damn it, i am still in initialState ! ! ! !"]
@@ -286,7 +300,10 @@ class MainBodyState extends State<MainBody> {
                           retrieveResetAssignToChildGorbalTime,
                       passInPassInpassIndispatchUpdateAction:
                           widget.passIndispatchUpdateAction),
-                  ShowTimerResult(passInResultList: timeResult),
+                  ShowTimerResult(
+                      passInResultList: timeResult,
+                      passInPassInRetrieveTimeResult:
+                          widget.passInRetrieveTimeResult),
                   GoogleMapWidget(passInPathList: path),
                 ],
               ),

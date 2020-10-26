@@ -5,6 +5,7 @@ import 'package:kmb/redux/buttonAvailabilityList/ButtonListAction.dart';
 import 'package:kmb/redux/buttonAvailabilityList/ButtonListState.dart';
 import 'package:kmb/redux/buttonAvailabilityList/UpdateButtonListAction.dart';
 import 'package:kmb/redux/store.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'MainBody.dart';
 import 'CusDrawer.dart';
 import 'CusSearch.dart';
@@ -48,6 +49,50 @@ class HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     }
   }
 
+  var route;
+  var bound;
+  var timeResult;
+
+  retrieveRouteInfo(routeInput) {
+    print("I am CALLING THE retrieveRouteInfo" + routeInput);
+    setState(() {
+      route = routeInput;
+    });
+  }
+
+  retrieveBoundInfo(boundInput) {
+    print("Testinggggggggg lolllllll");
+    print(boundInput);
+    setState(() {
+      bound = boundInput;
+    });
+  }
+
+  retrieveTimeResult(timeResult) {
+    print("I am CALLING THE Time  Resulttttt");
+    print(timeResult);
+    setState(() {
+      this.timeResult = timeResult;
+    });
+    saveDataLocally();
+  }
+
+  saveDataLocally() async{
+    final prefs = await SharedPreferences.getInstance();
+    final key = route+bound[0]+bound[1];
+    print("check check the key !!!!");
+    print(key);
+    final value= [route, bound, timeResult].toString();
+    print("Testing the string here !!!");
+    print(value);
+    prefs.setString(key, value);
+
+    var printValue = prefs.getString(key);
+    print("Testing new fucntion here !!!");
+    print(printValue);
+    print(prefs.getKeys());
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -66,12 +111,15 @@ class HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           )
         ],
       ),
-      drawer: CusDrawer(),
+      drawer: CusDrawer(
+          passInRoute: route, passInBound: bound, passInTimeResult: timeResult),
       body: MainBody(
-        passInData: result,
-        passIndispatchAction: dispatchAction,
-        passIndispatchUpdateAction: dispatchUpdateAction,
-      ),
+          passInData: result,
+          passIndispatchAction: dispatchAction,
+          passIndispatchUpdateAction: dispatchUpdateAction,
+          passInRetrieveRouteInfo: retrieveRouteInfo,
+          passInRetrieveBoundInfo: retrieveBoundInfo,
+          passInRetrieveTimeResult: retrieveTimeResult),
     );
   }
 

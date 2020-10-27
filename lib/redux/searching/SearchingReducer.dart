@@ -1,5 +1,4 @@
 import 'package:redux/redux.dart';
-import 'SearchingAction.dart';
 
 final searchingReducer = TypedReducer<bool, dynamic>(setSearchingReducer);
 

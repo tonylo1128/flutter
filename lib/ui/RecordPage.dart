@@ -1,20 +1,24 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:kmb/json/RecordJson.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RecordPage extends StatefulWidget {
-  final passInPassInRoute;
-  final passInPassInBound;
-  final passInPassInTimeResult;
+  final passInPharsedResult;
 
-  RecordPage(
-      {this.passInPassInRoute,
-      this.passInPassInBound,
-      this.passInPassInTimeResult});
+  RecordPage({this.passInPharsedResult});
 
   @override
   RecordPageState createState() => RecordPageState();
 }
 
 class RecordPageState extends State<RecordPage> {
+  @override
+  void initState() {
+    // initprefs();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,24 +28,25 @@ class RecordPageState extends State<RecordPage> {
             new IconButton(
               icon: Icon(Icons.search),
               onPressed: () => {
-                print(widget.passInPassInRoute),
-                print(widget.passInPassInBound),
-                print(widget.passInPassInTimeResult),
+                // prefs.clear(),
               },
             )
           ],
         ),
         body: Container(
           color: Colors.blueGrey,
-          child: widget.passInPassInRoute != null
-              ? Column(
+          child: widget.passInPharsedResult != null
+              ? ListView(
                   children: [
-                    Text(widget.passInPassInRoute),
-                    Text(widget.passInPassInBound[0]),
-                    Text(widget.passInPassInTimeResult),
+                    Text("IT WORKEDDDDDDDDDDDDDDDD"),
                   ],
                 )
-              : Text("Nth is in here yet ar !"),
+              : Center(
+                  child: Text(
+                    "Nth is in here yet !",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
         ));
   }
 }

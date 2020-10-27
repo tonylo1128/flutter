@@ -1,21 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:kmb/redux/buttonAvailabilityList/ButtonListAction.dart';
-import 'package:kmb/redux/buttonAvailabilityList/ButtonListState.dart';
 import 'ChallengeDataJson.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter_redux/flutter_redux.dart';
-
 import 'ConvertCoord.dart';
 
 var testingServer = "https://testing-server1128.herokuapp.com";
 var localhost = "http://10.192.32.43:8081";
 // var localhost = "http://192.168.8.182:8081";
 
-var server = testingServer;
+var server = localhost;
 
 List<dynamic> temp;
 List<ChallengeData> _result = List<ChallengeData>();

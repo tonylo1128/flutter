@@ -59,7 +59,8 @@ class ShowTimerResultState extends State<ShowTimerResult> {
                   onPressed: () => {
                     print(widget.passInResultList),
                     convertText(),
-                    widget.passInPassInRetrieveTimeResult(result),
+                    widget.passInPassInRetrieveTimeResult(
+                        widget.passInResultList),
                     FlutterClipboard.copy(result)
                         .then((value) => print('copied')),
                     Fluttertoast.showToast(

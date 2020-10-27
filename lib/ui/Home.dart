@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kmb/apiCall/getData/ChallengeDataJson.dart';
+import 'package:kmb/json/pharseStrongToRecordJson.dart';
 import 'package:kmb/redux/buttonAvailabilityList/ButtonListAction.dart';
 import 'package:kmb/redux/buttonAvailabilityList/ButtonListState.dart';
 import 'package:kmb/redux/buttonAvailabilityList/UpdateButtonListAction.dart';
@@ -77,20 +78,12 @@ class HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     saveDataLocally();
   }
 
-  saveDataLocally() async{
+  saveDataLocally() async {
     final prefs = await SharedPreferences.getInstance();
-    final key = route+bound[0]+bound[1];
-    print("check check the key !!!!");
-    print(key);
-    final value= [route, bound, timeResult].toString();
-    print("Testing the string here !!!");
-    print(value);
-    prefs.setString(key, value);
+    final key = route + bound[0] + bound[1];
+    var value = pharseStrongToRecordJson(route, bound, timeResult).toString();
 
-    var printValue = prefs.getString(key);
-    print("Testing new fucntion here !!!");
-    print(printValue);
-    print(prefs.getKeys());
+    prefs.setString(key, value);
   }
 
   @override
@@ -111,8 +104,7 @@ class HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           )
         ],
       ),
-      drawer: CusDrawer(
-          passInRoute: route, passInBound: bound, passInTimeResult: timeResult),
+      drawer: CusDrawer(),
       body: MainBody(
           passInData: result,
           passIndispatchAction: dispatchAction,

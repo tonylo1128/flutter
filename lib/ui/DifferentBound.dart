@@ -4,7 +4,6 @@ import 'package:kmb/apiCall/getData/getData.dart';
 // import 'package:kmb/redux/buttonAvailabilityList/buttonListAction.dart';
 import 'package:kmb/redux/reduxFileimport.dart';
 import 'package:kmb/redux/states.dart';
-import 'package:kmb/redux/store.dart';
 
 class DifferentBound extends StatefulWidget {
   final passInGetBoundResult;
@@ -239,7 +238,6 @@ class DifferentBoundState extends State<DifferentBound>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
 

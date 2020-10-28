@@ -27,11 +27,16 @@ class CusDrawerState extends State<CusDrawer> {
               jsonDecodeTemp.add(jsonDecode(value.getString(i))),
               print(jsonDecodeTemp),
               temp = RecordJson.fromJson(jsonDecodeTemp[keyList.indexOf(i)]),
-              print(temp),
               pharsedResult.add(temp)
             },
-          // print(pharsedResult[0]),
+          print(pharsedResult[1].route),
         });
+  }
+
+  @override
+  void initState() {
+    initprefs();
+    super.initState();
   }
 
   @override
@@ -41,7 +46,7 @@ class CusDrawerState extends State<CusDrawer> {
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.redAccent,
             ),
             child: Text(
               "Header",
@@ -49,9 +54,8 @@ class CusDrawerState extends State<CusDrawer> {
             ),
           ),
           ListTile(
-            title: Text("Texting 1"),
+            title: Text("Your Record"),
             onTap: () => {
-              initprefs(),
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {

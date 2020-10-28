@@ -65,7 +65,7 @@ class DifferentBoundState extends State<DifferentBound>
   Widget build(BuildContext context) {
     return Container(
       child: widget.passInGetBoundResult != null
-          ? Column(
+          ? ListView(
               children: [
                 ...(widget.passInGetBoundResult as List)
                     .map((item) => Column(

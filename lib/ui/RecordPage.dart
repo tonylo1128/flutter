@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:kmb/json/RecordJson.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kmb/ui/PopupDialog.dart';
+import 'package:kmb/ui/RecordCard.dart';
 
 class RecordPage extends StatefulWidget {
   final passInPharsedResult;
-
   RecordPage({this.passInPharsedResult});
 
   @override
@@ -13,12 +11,6 @@ class RecordPage extends StatefulWidget {
 }
 
 class RecordPageState extends State<RecordPage> {
-  @override
-  void initState() {
-    // initprefs();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,12 +26,21 @@ class RecordPageState extends State<RecordPage> {
           ],
         ),
         body: Container(
+          width: MediaQuery.of(context).size.width,
           color: Colors.blueGrey,
           child: widget.passInPharsedResult != null
-              ? ListView(
-                  children: [
-                    Text("IT WORKEDDDDDDDDDDDDDDDD"),
-                  ],
+              ? Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: ListView(
+                      children: [
+                        ...(widget.passInPharsedResult as List)
+                            .map((item) =>
+                                RecordCard(passInPharsedResultItem: item))
+                            .toList()
+                      ],
+                    ),
+                  ),
                 )
               : Center(
                   child: Text(

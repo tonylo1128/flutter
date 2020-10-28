@@ -27,9 +27,13 @@ class _PopupDialogState extends State<PopupDialog> {
                       Text(item['station'].toString()),
                     ],
                   ))
-              .toList()
+              .toList(),
+            
         ],
       ),
+      actions: <Widget>[
+        TextButton(onPressed: null, child: Text("Copied"),)
+      ],
     );
   }
 }

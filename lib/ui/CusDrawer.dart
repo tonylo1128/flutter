@@ -19,6 +19,7 @@ class CusDrawerState extends State<CusDrawer> {
 
   initprefs() async {
     await SharedPreferences.getInstance().then((value) => {
+
           print("TESTINGGGGGGGGGGGGGGGGGGGG"),
           print(value.getKeys()),
           keyList = value.getKeys().toList(),
@@ -29,7 +30,6 @@ class CusDrawerState extends State<CusDrawer> {
               temp = RecordJson.fromJson(jsonDecodeTemp[keyList.indexOf(i)]),
               pharsedResult.add(temp)
             },
-          print(pharsedResult[1].route),
         });
   }
 

@@ -20,6 +20,7 @@ class _PopupDialogState extends State<PopupDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Text(widget.passInItem.createDate),
           ...(widget.passInItem.timerList as List)
               .map((item) => Row(
                     children: <Widget>[
@@ -28,11 +29,13 @@ class _PopupDialogState extends State<PopupDialog> {
                     ],
                   ))
               .toList(),
-            
         ],
       ),
       actions: <Widget>[
-        TextButton(onPressed: null, child: Text("Copied"),)
+        TextButton(
+          onPressed: null,
+          child: Text("Copied"),
+        )
       ],
     );
   }

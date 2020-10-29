@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+
 import 'ChallengeDataJson.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -78,7 +79,7 @@ getPath(
   Set<Polyline> polyline = {};
 
   var response = await http.post(
-      "http://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getstops&route=" +
+      "https://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getstops&route=" +
           keyword +
           "&serviceType=" +
           passInTargetServiceType +
@@ -135,7 +136,7 @@ getBound(inputRoute, Function passInSetBoundResult,
   print("i am inside getBound la !");
 
   var resp = await http.get(
-      "http://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getroutebound&route=" +
+      "https://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getroutebound&route=" +
           inputRoute);
 
   var temp = json.decode(resp.body)['data'];
@@ -151,7 +152,7 @@ getBoundBasicInfo(boundList, Function retrieveBoundBasicInfo) async {
   print(boundList);
   for (var i in boundList) {
     var response = await http.post(
-        "http://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getstops&route=" +
+        "https://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx?action=getstops&route=" +
             i["ROUTE"] +
             "&serviceType=" +
             i["SERVICE_TYPE"].toString() +

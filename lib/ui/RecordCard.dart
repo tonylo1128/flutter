@@ -26,43 +26,44 @@ class _RecordCardState extends State<RecordCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.only(bottom: 20),
+      // margin: EdgeInsets.only(top: 10, bottom: 20),
       child: InkWell(
-          splashColor: Colors.redAccent.withAlpha(30),
-          onTap: () => {
-                print("tapped"),
-                _showMyDialog(),
-              },
-          child: Container(
-            // width: MediaQuery.of(context).size.width * 0.8,
-            height: 100,
-            child: Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Text(
-                    widget.passInPharsedResultItem.route,
-                    style: font20Black,
-                  ),
+        splashColor: Colors.redAccent.withAlpha(30),
+        onTap: () => {
+          print("tapped"),
+          _showMyDialog(),
+        },
+        child: Container(
+          // width: MediaQuery.of(context).size.width * 0.8,
+          height: 100,
+          child: Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                child: Text(
+                  widget.passInPharsedResultItem.route,
+                  style: font20Black,
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Text(
-                    "Bound : " + widget.passInPharsedResultItem.bound,
-                    style: font20Black,
-                  ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Bound : " + widget.passInPharsedResultItem.bound,
+                  style: font20Black,
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Text(
-                    "Service Type : " +
-                        widget.passInPharsedResultItem.serviceType,
-                    style: font20Black,
-                  ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Service Type : " +
+                      widget.passInPharsedResultItem.serviceType,
+                  style: font20Black,
                 ),
-              ],
-            ),
-          )),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

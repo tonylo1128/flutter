@@ -1,5 +1,10 @@
+import 'package:intl/intl.dart';
+
 pharseStrongToRecordJson(route, boundInfo, timerList) {
   String jsonString;
+
+  var now = DateFormat('yyyy-MM-dd H:M:S').format(new DateTime.now());
+  print(now);
 
   String temp = "";
   jsonString = "{" +
@@ -16,6 +21,11 @@ pharseStrongToRecordJson(route, boundInfo, timerList) {
       "\"serviceType\":" +
       "\"" +
       boundInfo[1].toString() +
+      "\"" +
+      "," +
+      "\"createDate\":" +
+      "\"" +
+      now.toString() +
       "\"" +
       "," +
       "\"timerList\":" +
@@ -42,7 +52,7 @@ pharseStrongToRecordJson(route, boundInfo, timerList) {
   }
 
   jsonString = jsonString + temp + "]" + "}";
-  print("Tstingggggggggggggggg");
+  print("This is pharseStrongToRecordJson function");
   print(jsonString);
   return jsonString;
 }

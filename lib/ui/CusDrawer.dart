@@ -19,23 +19,26 @@ class CusDrawerState extends State<CusDrawer> {
 
   initprefs() async {
     await SharedPreferences.getInstance().then((value) => {
-
-          print("TESTINGGGGGGGGGGGGGGGGGGGG"),
-          print(value.getKeys()),
+          print("This is the init process for the SharedPreferences"),
           keyList = value.getKeys().toList(),
           for (var i in keyList)
             {
               jsonDecodeTemp.add(jsonDecode(value.getString(i))),
-              print(jsonDecodeTemp),
               temp = RecordJson.fromJson(jsonDecodeTemp[keyList.indexOf(i)]),
               pharsedResult.add(temp)
             },
+          if (keyList.length == 0)
+            {
+              jsonDecodeTemp = [],
+              keyList = [],
+              pharsedResult = new List<RecordJson>(),
+            }
         });
+    print("jsut finish that init staff");
   }
 
   @override
   void initState() {
-    initprefs();
     super.initState();
   }
 
@@ -56,6 +59,8 @@ class CusDrawerState extends State<CusDrawer> {
           ListTile(
             title: Text("Your Record"),
             onTap: () => {
+              print("I just click onTAPPPPPPPPP"),
+              initprefs(),
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {

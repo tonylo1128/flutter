@@ -5,12 +5,9 @@ import 'package:kmb/json/pharseStrongToRecordJson.dart';
 import 'package:kmb/redux/buttonAvailabilityList/ButtonListAction.dart';
 import 'package:kmb/redux/buttonAvailabilityList/ButtonListState.dart';
 import 'package:kmb/redux/buttonAvailabilityList/UpdateButtonListAction.dart';
-import 'package:kmb/redux/store.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'MainBody.dart';
 import 'CusDrawer.dart';
-import 'CusSearch.dart';
-import 'NetworkCheck.dart';
 import 'SearchTextField.dart';
 
 class Home extends StatefulWidget {

@@ -76,10 +76,12 @@ class HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   }
 
   saveDataLocally() async {
+    print("we r in saveDataLocally func & abt to save data la !");
     final prefs = await SharedPreferences.getInstance();
     final key = route + bound[0] + bound[1];
     var value = pharseStrongToRecordJson(route, bound, timeResult).toString();
-
+    print("key value is   " + key.toString());
+    print("value's value is   " + value.toString());
     prefs.setString(key, value);
   }
 

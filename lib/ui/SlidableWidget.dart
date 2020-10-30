@@ -48,11 +48,14 @@ class _SlidableWidgetState extends State<SlidableWidget> {
         child: SlidableDrawerDismissal(),
         onDismissed: (actionType) {
           temps = prefs.getKeys().toList();
+          print("check check the key list before deleteeeeeeeee   ");
+          print(temps);
           for (var i in temps) {
             if (i ==
                 widget.passInLoopingItem.route.toString() +
                     widget.passInLoopingItem.bound.toString() +
                     widget.passInLoopingItem.serviceType.toString()) {
+              print("about to remove   :  " + i.toString());
               prefs.remove(i);
             }
           }

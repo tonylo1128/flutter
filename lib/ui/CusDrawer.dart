@@ -15,38 +15,32 @@ class CusDrawerState extends State<CusDrawer> {
   List<RecordJson> pharsedResult = new List<RecordJson>();
   List jsonDecodeTemp = [];
   List keyList = [];
-  var lastLength;
   var temp;
 
-  initprefs() async {
-    await SharedPreferences.getInstance().then((value) => {
-          print("This is the init process for the SharedPreferences"),
-          print(keyList.length),
-          if (keyList.length == 0)
-            {
-              print("I am in == 0 !!!"),
-              addRecordToVar(value),
-            }
-          else if (keyList.length > lastLength)
-            {
-              print(keyList.length),
-              print(lastLength),
-              print(1 > 0),
-              print("I am in >>>>>>>>>>>>>"),
-              addRecordToVar(value),
-            },
-        });
-    print("jsut finish that init staff");
-  }
-
   addRecordToVar(inputValue) {
+    pharsedResult = [];
+    jsonDecodeTemp = [];
     keyList = inputValue.getKeys().toList();
+
     for (var i in keyList) {
+      print("check check the key list before addeddddddddddddd   ");
+      print(keyList);
+      print(i);
       jsonDecodeTemp.add(jsonDecode(inputValue.getString(i)));
+      print(jsonDecodeTemp);
+      print(keyList.indexOf(i));
       temp = RecordJson.fromJson(jsonDecodeTemp[keyList.indexOf(i)]);
+      print('about to add a new item to record laaaaaaaaaaa');
+      print(temp.route);
       pharsedResult.add(temp);
     }
-    lastLength = keyList.length;
+  }
+
+  initprefs() async {
+    await SharedPreferences.getInstance()
+        .then((vaule) => {addRecordToVar(vaule)});
+
+    print("jsut finish that init staff");
   }
 
   @override

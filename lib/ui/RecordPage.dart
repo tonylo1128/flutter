@@ -3,7 +3,8 @@ import 'package:kmb/ui/SlidableWidget.dart';
 
 class RecordPage extends StatefulWidget {
   final passInPharsedResult;
-  RecordPage({this.passInPharsedResult});
+  final passInObj;
+  RecordPage({this.passInPharsedResult, this.passInObj});
 
   @override
   RecordPageState createState() => RecordPageState();
@@ -19,7 +20,8 @@ class RecordPageState extends State<RecordPage> {
           new IconButton(
             icon: Icon(Icons.search),
             onPressed: () => {
-              // widget.passInPrefs.clear(),
+              widget.passInObj.clear(),
+              print("record clear"),
             },
           )
         ],

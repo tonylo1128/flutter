@@ -304,7 +304,8 @@ class MainBodyState extends State<MainBody> {
                   ShowTimerResult(
                       passInResultList: timeResult,
                       passInPassInRetrieveTimeResult:
-                          widget.passInRetrieveTimeResult),
+                          widget.passInRetrieveTimeResult,
+                      passInPageController: pageController),
                   GoogleMapWidget(passInPathList: path),
                 ],
               ),

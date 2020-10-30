@@ -6,9 +6,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 class ShowTimerResult extends StatefulWidget {
   final passInResultList;
   final passInPassInRetrieveTimeResult;
+  final passInPageController;
 
   const ShowTimerResult(
-      {this.passInResultList, this.passInPassInRetrieveTimeResult});
+      {this.passInResultList,
+      this.passInPassInRetrieveTimeResult,
+      this.passInPageController});
 
   @override
   ShowTimerResultState createState() => ShowTimerResultState();
@@ -74,6 +77,22 @@ class ShowTimerResultState extends State<ShowTimerResult> {
                   },
                   child: Text(
                     "Check your result",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Container(
+                child: RaisedButton(
+                  color: Colors.redAccent,
+                  onPressed: () => {
+                    widget.passInPageController.animateToPage(
+                      0,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut,
+                    )
+                  },
+                  child: Text(
+                    "Back to Home",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

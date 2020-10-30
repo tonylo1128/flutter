@@ -23,15 +23,8 @@ class CusDrawerState extends State<CusDrawer> {
     keyList = inputValue.getKeys().toList();
 
     for (var i in keyList) {
-      print("check check the key list before addeddddddddddddd   ");
-      print(keyList);
-      print(i);
       jsonDecodeTemp.add(jsonDecode(inputValue.getString(i)));
-      print(jsonDecodeTemp);
-      print(keyList.indexOf(i));
       temp = RecordJson.fromJson(jsonDecodeTemp[keyList.indexOf(i)]);
-      print('about to add a new item to record laaaaaaaaaaa');
-      print(temp.route);
       pharsedResult.add(temp);
     }
   }

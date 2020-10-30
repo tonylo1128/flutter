@@ -175,7 +175,9 @@ class MainBodyState extends State<MainBody> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  dragSuccessTemp.company,
+                                  dragSuccessTemp.company +
+                                      " " +
+                                      dragSuccessTemp.route,
                                   style: font30White,
                                 ),
                                 Text(
@@ -258,10 +260,9 @@ class MainBodyState extends State<MainBody> {
                           boundResultList, retrieveBoundBasicInfo);
 
                       print("aftar on accept");
-                      
+
                       // boundResultList
                       if (data.id != 0) {
-                        
                         setState(() {
                           successfulDrop = true;
                           dragSuccessTemp = data;

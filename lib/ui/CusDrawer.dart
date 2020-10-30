@@ -15,26 +15,38 @@ class CusDrawerState extends State<CusDrawer> {
   List<RecordJson> pharsedResult = new List<RecordJson>();
   List jsonDecodeTemp = [];
   List keyList = [];
+  var lastLength;
   var temp;
 
   initprefs() async {
     await SharedPreferences.getInstance().then((value) => {
           print("This is the init process for the SharedPreferences"),
-          keyList = value.getKeys().toList(),
-          for (var i in keyList)
-            {
-              jsonDecodeTemp.add(jsonDecode(value.getString(i))),
-              temp = RecordJson.fromJson(jsonDecodeTemp[keyList.indexOf(i)]),
-              pharsedResult.add(temp)
-            },
+          print(keyList.length),
           if (keyList.length == 0)
             {
-              jsonDecodeTemp = [],
-              keyList = [],
-              pharsedResult = new List<RecordJson>(),
+              print("I am in == 0 !!!"),
+              addRecordToVar(value),
             }
+          else if (keyList.length > lastLength)
+            {
+              print(keyList.length),
+              print(lastLength),
+              print(1 > 0),
+              print("I am in >>>>>>>>>>>>>"),
+              addRecordToVar(value),
+            },
         });
     print("jsut finish that init staff");
+  }
+
+  addRecordToVar(inputValue) {
+    keyList = inputValue.getKeys().toList();
+    for (var i in keyList) {
+      jsonDecodeTemp.add(jsonDecode(inputValue.getString(i)));
+      temp = RecordJson.fromJson(jsonDecodeTemp[keyList.indexOf(i)]);
+      pharsedResult.add(temp);
+    }
+    lastLength = keyList.length;
   }
 
   @override

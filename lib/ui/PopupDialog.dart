@@ -1,4 +1,6 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PopupDialog extends StatefulWidget {
   final passInItem;
@@ -9,6 +11,15 @@ class PopupDialog extends StatefulWidget {
 }
 
 class _PopupDialogState extends State<PopupDialog> {
+  String result = "";
+
+  convertText() {
+    for (var i in widget.passInItem.timerList) {
+      result = result + i["time"] + " " + i["station"] + "\n";
+    }
+    print(result);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -33,8 +44,22 @@ class _PopupDialogState extends State<PopupDialog> {
       ),
       actions: <Widget>[
         TextButton(
-          onPressed: null,
-          child: Text("Copied"),
+          onPressed: ()=>{
+            print(widget.passInItem.timerList),
+            convertText(),
+            FlutterClipboard.copy(result)
+                        .then((value) => print('copied')),
+                    Fluttertoast.showToast(
+                        msg: "Copied !",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.redAccent,
+                        textColor: Colors.white,
+                        fontSize: 16.0)
+                  
+          },
+          child: Text("Copy"),
         )
       ],
     );

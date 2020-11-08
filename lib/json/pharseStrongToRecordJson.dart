@@ -3,7 +3,8 @@ import 'package:intl/intl.dart';
 pharseStrongToRecordJson(route, boundInfo, timerList) {
   String jsonString;
 
-  var now = DateFormat('yyyy-MM-dd H:M:S').format(new DateTime.now());
+  var now = DateFormat('yyyy-MM-dd h:M:S').format(new DateTime.now());
+
   print(now);
 
   String temp = "";
